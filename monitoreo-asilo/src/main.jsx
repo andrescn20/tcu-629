@@ -2,11 +2,11 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 import { Auth0Provider, withAuthenticationRequired } from '@auth0/auth0-react';
-import Login from './Login.jsx'
+import Login from './pages/Login.jsx'
 import './index.css'
 import TestTables from './TestTables.jsx'
-import Profile from './Profile.jsx'
-import Home from './Home.jsx'
+import Profile from './pages/Profile.jsx'
+import Home from './pages/Home.jsx'
 
 const ProtectedRoute = ({ component, ...args }) => {
   const Component = withAuthenticationRequired(component, args);
@@ -38,7 +38,8 @@ createRoot(document.getElementById('root')).render(
       >
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/home" element={<ProtectedRoute component={Home} />} />
+          {/* <Route path="/home" element={<ProtectedRoute component={Home} />} /> */}
+          <Route path="/home" element={<Home/>} />
           <Route path="/profile" element={<ProtectedRoute component={Profile} />} />
           <Route
             path="tablestest"

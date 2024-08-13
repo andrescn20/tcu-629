@@ -5,12 +5,16 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        "home": "url('/src/assets/fondo_Hogar.png')",
+      },
+    },
   },
   plugins: [
     require('daisyui'),
   ],
   daisyui: {
-    themes: ["dim", "nord"],
+    themes: ["nodr"],
   },
 }
