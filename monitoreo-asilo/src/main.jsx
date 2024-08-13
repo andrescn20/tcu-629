@@ -1,25 +1,53 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import App from './App.jsx'
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
+import { Auth0Provider, withAuthenticationRequired } from '@auth0/auth0-react';
+import Login from './Login.jsx'
 import './index.css'
-import ProtectedRoute from './ProtectedRoute.jsx'
 import TestTables from './TestTables.jsx'
+import Profile from './Profile.jsx'
+import Home from './Home.jsx'
+
+const ProtectedRoute = ({ component, ...args }) => {
+  const Component = withAuthenticationRequired(component, args);
+  return <Component />;
+};
+
+const Auth0ProviderWithRedirectCallback = ({ children, ...props }) => {
+  const navigate = useNavigate();
+  const onRedirectCallback = (appState) => {
+    navigate((appState && appState.returnTo) || window.location.pathname);
+  };
+  return (
+    <Auth0Provider onRedirectCallback={onRedirectCallback} {...props}>
+      {children}
+    </Auth0Provider>
+  );
+};
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Router>
-      <Routes path="/" element={<App />}>
-      <Route path="/" element={<App />} />
-        <Route
-          path="tablestest"
-          element={
-            <ProtectedRoute>
-              <TestTables />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
+      <Auth0ProviderWithRedirectCallback
+        domain= {import.meta.env.auth0_domain}
+        clientId= {import.meta.env.auth0_client_id}
+        authorizationParams={{
+          redirect_uri: `${window.location.origin}/home`,
+        }}
+      >
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/home" element={<ProtectedRoute component={Home} />} />
+          <Route path="/profile" element={<ProtectedRoute component={Profile} />} />
+          <Route
+            path="tablestest"
+            element={
+              <ProtectedRoute component={TestTables}/>
+            }
+          />
+        </Routes>
+      </Auth0ProviderWithRedirectCallback>
     </Router>
   </StrictMode>,
 )
