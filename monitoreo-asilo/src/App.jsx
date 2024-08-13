@@ -45,9 +45,9 @@ const App = () => {
   };
 
   return (
-    <div>
-      <h1 className=''>Supabase + Vite + React</h1>
-      <div >
+    <div className='border-2 h-full'>
+      <h1 >App Monitoreo TCU 629</h1>
+      <div className='artboard phone-2 artboard-horizontal border-2'>
         <input
           type="email"
           placeholder="Email"
@@ -60,8 +60,8 @@ const App = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={handleSignUp}>Sign Up</button>
-        <button onClick={handleLogin}>Log In</button>
+        <button className="btn" onClick={handleSignUp}>Sign Up</button>
+        <button className="btn" onClick={handleLogin}>Log In</button>
       </div>
     </div>
   );
