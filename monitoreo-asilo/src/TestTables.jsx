@@ -1,21 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { supabase } from './supabaseClient';
 
 const TestTables = () => {
-  const [session, setSession] = useState(null)
   const [data, setData] = useState([]);
   const [newData, setNewData] = useState('');
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
-
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-  }, [session]);
-
   
   useEffect(() => {
       fetchData();
@@ -23,19 +10,19 @@ const TestTables = () => {
 
   const fetchData = async () => {
     console.log('Fetching data...');
-    const { data, error } = await supabase.from('temperatures').select("*");
-    if (error) {
-      console.error('Error fetching data:', error);
-    } else {
-      console.log('Data fetched', data);
-      setData(data);
-    }
+    // const { data, error } = await supabase.from('temperatures').select("*");
+    // if (error) {
+    //   console.error('Error fetching data:', error);
+    // } else {
+    //   console.log('Data fetched', data);
+    //   setData(data);
+    // }
   };
 
-  const handleLogout = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) console.error('Error logging out:', error);
-  };
+  // const handleLogout = async () => {
+  //   const { error } = await supabase.auth.signOut();
+  //   if (error) console.error('Error logging out:', error);
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,7 +45,7 @@ const TestTables = () => {
         <>
           {/* <button onClick={handleLogout}>Log Out</button> */}
           <div>
-            <h2>Data from Supabase</h2>
+            <h2 className='text-white'>Data from Supabase</h2>
             <ul>
               {data.map(item => (
                 <li key={item.id}>{item.temperature}</li>
