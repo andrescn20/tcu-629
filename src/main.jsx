@@ -7,6 +7,9 @@ import './index.css'
 import TestTables from './TestTables.jsx'
 import Profile from './pages/Profile.jsx'
 import Home from './pages/Home.jsx'
+import AgregarDispositivo from './pages/AgregarDispositivo.jsx';
+import PanelGeneral from './pages/PanelGeneral.jsx';
+import Ayuda from './pages/Ayuda.jsx';
 
 const ProtectedRoute = ({ component, ...args }) => {
   const Component = withAuthenticationRequired(component, args);
@@ -30,8 +33,8 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Router>
       <Auth0ProviderWithRedirectCallback
-        domain= {import.meta.env.auth0_domain}
-        clientId= {import.meta.env.auth0_client_id}
+        domain={import.meta.env.auth0_domain}
+        clientId={import.meta.env.auth0_client_id}
         authorizationParams={{
           redirect_uri: `${window.location.origin}/home`,
         }}
@@ -39,12 +42,15 @@ createRoot(document.getElementById('root')).render(
         <Routes>
           <Route path="/" element={<Login />} />
           {/* <Route path="/home" element={<ProtectedRoute component={Home} />} /> */}
-          <Route path="/home" element={<Home/>} />
+          <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<ProtectedRoute component={Profile} />} />
+          <Route path='/dispositivo' element={<AgregarDispositivo />} />
+          <Route path='/general' element={<PanelGeneral />} />
+          <Route path='/ayuda' element={<Ayuda />} />
           <Route
             path="tablestest"
             element={
-              <ProtectedRoute component={TestTables}/>
+              <ProtectedRoute component={TestTables} />
             }
           />
         </Routes>

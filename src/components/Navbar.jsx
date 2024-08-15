@@ -1,6 +1,20 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+
+  const navigate = useNavigate();
+  const navBarClick = (e) => {
+    const target = e.target.value;
+    const pages = {
+      inicio: '/home',
+      dispositivo: '/dispositivo',
+      general: '/general',
+      ayuda: '/ayuda'
+    }
+    navigate(pages[target]);
+  }
+
   return (
     <div className="navbar bg-base-100 shadow-md">
       <div className="flex-none">
@@ -19,10 +33,10 @@ const Navbar = () => {
               d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
         </label>
-        <a className="btn btn-ghost text-xl">Inicio</a>
-        <a className="btn btn-ghost text-xl">Agregar Dispositivo</a>
-        <a className="btn btn-ghost text-xl">Panel General</a>
-        <a className="btn btn-ghost text-xl">Ayuda</a>
+        <button value="inicio" onClick = { (e) => navBarClick(e)}className="btn btn-ghost text-xl">Inicio</button>
+        <button value="dispositivo" onClick = { (e) => navBarClick(e)}className="btn btn-ghost text-xl" href="">Agregar Dispositivo</button>
+        <button value="general" onClick = { (e) => navBarClick(e)}className="btn btn-ghost text-xl">Panel General</button>
+        <button value="ayuda" onClick = { (e) => navBarClick(e)}className="btn btn-ghost text-xl">Ayuda</button>
       </div>
       <div className="flex-none">
         <button className="btn btn-square btn-ghost">
