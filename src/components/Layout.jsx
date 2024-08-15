@@ -1,5 +1,5 @@
 import React from "react";
-import NavBar from "./NavBar";
+import Navbar from "./Navbar";
 import Footer from "./Footer";
 
 const Layout = ({ children }) => {
@@ -7,7 +7,7 @@ const Layout = ({ children }) => {
         <div className="drawer h-full">
             <input id="my-drawer" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content flex flex-col">
-                <NavBar />
+                <Navbar />
                 {children}
                 <Footer />
             </div>
