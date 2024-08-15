@@ -12,23 +12,24 @@ const Login = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/tablestest');
+      navigate('/home');
     }
   }, []);
 
   const handleSignUp = async () => {
-    navigate('/tablestest');
+    navigate('/home');
   };
 
   const handleLogin = async () => {
-      navigate('/tablestest');
+      navigate('/home');
   };
 
   return (
     <div className='h-full flex flex-col items-center justify-center'>
       <h1 >App Monitoreo TCU 629</h1>
       <div className='space-x-5 my-4'>
-        <LoginButton />
+        {/* <LoginButton /> */}
+        <button className="btn btn-primary" onClick={() => handleLogin()}>Log In</button>
       </div>
     </div>
   );
