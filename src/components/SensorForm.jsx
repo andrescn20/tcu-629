@@ -30,10 +30,7 @@ const SensorForm = ({currentFields, sensors, setSensors, sensorTypeOptions}) => 
        if (sensors[currentFields]) {
            setSensor(sensors[currentFields]);
        }}, []);
-
-    // useEffect(() => {
-    //     console.log("Current Sensor", sensor);
-    // }, [sensor]);
+       
     return (
         <>
             <p className='font-bold mt-4'>Sensor #{currentFields + 1}</p>
