@@ -9,7 +9,8 @@ import Profile from './pages/Profile.jsx'
 import Home from './pages/Home.jsx'
 import AgregarDispositivo from './pages/AgregarDispositivo.jsx';
 import PanelGeneral from './pages/PanelGeneral.jsx';
-import Ayuda from './pages/Ayuda.jsx';
+import Ayuda from './pages/Configuracion.jsx';
+import Configuracion from './pages/Configuracion.jsx';
 
 const ProtectedRoute = ({ component, ...args }) => {
   const Component = withAuthenticationRequired(component, args);
@@ -46,7 +47,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="/profile" element={<ProtectedRoute component={Profile} />} />
             <Route path='/dispositivo' element={<AgregarDispositivo />} />
             <Route path='/general' element={<PanelGeneral />} />
-            <Route path='/ayuda' element={<Ayuda />} />
+            <Route path='/ayuda' element={<Configuracion />} />
             <Route
               path="tablestest"
               element={
