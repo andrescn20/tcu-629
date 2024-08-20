@@ -32,7 +32,7 @@ const Navbar = () => {
         <button value="inicio" onClick = { (e) => navBarClick(e)}className="text-xl">Inicio</button>
         <button value="dispositivo" onClick = { (e) => navBarClick(e)}className="text-xl" href="">Agregar Dispositivo</button>
         <button value="general" onClick = { (e) => navBarClick(e)}className="text-xl">Panel General</button>
-        <button value="ayuda" onClick = { (e) => navBarClick(e)}className="text-xl">Ayuda</button>
+        <button value="ayuda" onClick = { (e) => navBarClick(e)}className="text-xl">Configuración</button>
       </div>
       <div className="">
         <button className="">
