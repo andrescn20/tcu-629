@@ -57,8 +57,9 @@ const AgregarDispositivo = () => {
             navigate('/home');
         }
         catch (error) {
-            console.error(error
-            );
+            alert("ATENCION: Error al crear el dispositivo");
+            console.error(error);
+            navigate('/agregardispositivo');
         }
     }
 
@@ -80,17 +81,18 @@ const AgregarDispositivo = () => {
     }
 
     useEffect(() => {
+        console.log(newDevice);
     }, [newDevice]);
 
     const generateTypeOptions = () => {
         if (deviceTypes.length === 0) return [];
         const dtypes = deviceTypes.map(type => {
-            return { key: type.deviceTypeId, text: type.type }
+            return { key: type.typeId, text: type.type }
         })
         setDeviceTypeOptions(dtypes);
         if (sensorTypes.length === 0) return [];
         const stypes = sensorTypes.map(type => {
-            return { key: type.sensorTypeId, text: type.type }
+            return { key: type.typeId, text: type.type }
         })
         setSensorTypeOptions(stypes);
     };
@@ -98,6 +100,7 @@ const AgregarDispositivo = () => {
     const fetchDeviceTypes = async () => {
         const response = await fetch(url + '/Hardware/GetDeviceTypes?withDevices=false');
         const data = await response.json();
+        console.log(data)
         setDeviceTypes(data);
     }
     const fetchSensorTypes = async () => {
@@ -156,7 +159,10 @@ const AgregarDispositivo = () => {
                     label="Tipo de Dispositivo"
                     options={deviceTypeOptions}
                     styles={dropdownStyles}
-                    onChange={(e, item) => setNewDevice({ ...newDevice, deviceTypeId: item.key })}
+                    onChange={(e, item) => {
+                        console.log(item);
+                        setNewDevice({ ...newDevice, deviceTypeId: item.key })
+                    }}
                 />
                 <TextField label="Ubicación" placeholder='Pabellón Central' required value={newDevice.location} onChange={(e) => setNewDevice({ ...newDevice, location: e.target.value })} />
                 <TextField label="Descripción" placeholder='Calentador para las habitaciones 1 al 4' value={newDevice.description} multiline rows={3} onChange={(e) => setNewDevice({ ...newDevice, description: e.target.value })} />
@@ -179,7 +185,7 @@ const AgregarDispositivo = () => {
 
     return (
         <Layout>
-            <div className='flex flex-col h-full items-center pt-24 space-y-4'>
+            <div className='flex flex-col h-full items-center pt-4 space-y-4'>
                 <h2 className='text-2xl'>Nuevo Dispositivo</h2>
                 <form onSubmit={handleSubmit}
                     className='w-1/2'>
