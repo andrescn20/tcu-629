@@ -8,9 +8,9 @@ import TestTables from './TestTables.jsx'
 import Profile from './pages/Profile.jsx'
 import Home from './pages/Home.jsx'
 import AgregarDispositivo from './pages/AgregarDispositivo.jsx';
-import PanelGeneral from './pages/PanelGeneral.jsx';
-import Ayuda from './pages/Configuracion.jsx';
-import Configuracion from './pages/Configuracion.jsx';
+import PanelGeneral from './pages/PanelGeneral.tsx';
+import Configuracion from './pages/Configuracion.tsx';
+import Dispositivo from './pages/Dispositivo.tsx';
 
 const ProtectedRoute = ({ component, ...args }) => {
   const Component = withAuthenticationRequired(component, args);
@@ -45,9 +45,10 @@ createRoot(document.getElementById('root')).render(
             {/* <Route path="/home" element={<ProtectedRoute component={Home} />} /> */}
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<ProtectedRoute component={Profile} />} />
-            <Route path='/dispositivo' element={<AgregarDispositivo />} />
+            <Route path='/agregardispositivo' element={<AgregarDispositivo />} />
             <Route path='/general' element={<PanelGeneral />} />
             <Route path='/ayuda' element={<Configuracion />} />
+            <Route path='/dispositivo' element={<Dispositivo />} />
             <Route
               path="tablestest"
               element={
