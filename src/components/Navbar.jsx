@@ -8,7 +8,7 @@ const Navbar = () => {
     const target = e.target.value;
     const pages = {
       inicio: '/home',
-      dispositivo: '/dispositivo',
+      dispositivo: '/agregardispositivo',
       general: '/general',
       ayuda: '/ayuda'
     }
