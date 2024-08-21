@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Dropdown } from '@fluentui/react/lib/Dropdown';
 import { TextField } from '@fluentui/react/lib/TextField';
 import { PrimaryButton } from "@fluentui/react";
-import { render } from "react-dom";
 
 const TypesForm = ({ sensorTypes, deviceTypes, url, fetchSensorTypes, fetchDeviceTypes }) => {
 
@@ -13,23 +11,8 @@ const TypesForm = ({ sensorTypes, deviceTypes, url, fetchSensorTypes, fetchDevic
 
     const [newSensorType, setNewSensorType] = useState("");
     const [newDeviceType, setNewDeviceType] = useState("");
-    const [deviceTypeOptions, setDeviceTypeOptions] = useState([]);
-    const [sensorTypeOptions, setSensorTypeOptions] = useState([]);
-
-
-
-    const generateTypeOptions = () => {
-        if (deviceTypes.length === 0) return [];
-        const dtypes = deviceTypes.map(type => {
-            return { key: type.deviceTypeId, text: type.type }
-        })
-        setDeviceTypeOptions(dtypes);
-        if (sensorTypes.length === 0) return [];
-        const stypes = sensorTypes.map(type => {
-            return { key: type.sensorTypeId, text: type.type }
-        })
-        setSensorTypeOptions(stypes);
-    };
+    const [toogleSensorTypes, setToogleSensorTypes] = useState(false);
+    const [toogleDeviceTypes, setToogleDeviceTypes] = useState(false);
 
     const handleNewSensorSubmit = async () => {
         const response = await fetch(url + '/Hardware/AddSensorType', {
@@ -58,9 +41,6 @@ const TypesForm = ({ sensorTypes, deviceTypes, url, fetchSensorTypes, fetchDevic
         const data = await response.json();
         console.log(data);
     }
-    useEffect(() => {
-        generateTypeOptions();
-    }, [deviceTypes, sensorTypes]);
 
     const deleteType = async (category, typeId) => {
         const response = await fetch(url + `/Hardware/DeleteTypes?category=${category}&typeId=${typeId}`, {
@@ -70,7 +50,6 @@ const TypesForm = ({ sensorTypes, deviceTypes, url, fetchSensorTypes, fetchDevic
         fetchDeviceTypes();
         fetchSensorTypes();
     }
-
 
     const renderTypesTable = (types, category) => {
         return types.map((type, index) => {
@@ -82,10 +61,11 @@ const TypesForm = ({ sensorTypes, deviceTypes, url, fetchSensorTypes, fetchDevic
         </div>
         })
     }
+
     return (
-        <div className="flex space-x-8 justify-center px-8 my-8">
+        <div className="flex space-x-8 justify-start px-8 mb-8 pb-4">
             <div className="w-1/3">
-                <p className='font-bold mt-4 text-lg'>Sensores</p>
+                <p className='font-bold mt-4 text-lg'>Tipos de Sensores</p>
                 <TextField className="max-w-sm my-2" label="Nuevo Tipo de Sensor" placeholder="Ej: Sensor de Humedad" required value={newSensorType}
                     onChange={(e) => {
                         setNewSensorType(e.target.value)
@@ -95,7 +75,7 @@ const TypesForm = ({ sensorTypes, deviceTypes, url, fetchSensorTypes, fetchDevic
                 {renderTypesTable(sensorTypes, "sensor")}
             </div>
             <div className="w-1/3">
-                <p className='font-bold mt-4 text-lg'>Dispositivos</p>
+                <p className='font-bold mt-4 text-lg'>Tipos de Dispositivos</p>
                 <TextField className="max-w-sm my-2" label="Nuevo Tipo de Dispositivo" placeholder="Ej: Calentador" required value={newDeviceType}
                     onChange={(e) => {
                         setNewDeviceType(e.target.value)
