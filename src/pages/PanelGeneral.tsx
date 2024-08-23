@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import Device from "../components/Device";
-import { IDevice } from "../components/interfaces";
+import { IDevice } from "../components/Interfaces";
 
 const PanelGeneral = () => {
 
