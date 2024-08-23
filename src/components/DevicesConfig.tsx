@@ -1,13 +1,12 @@
 import React from "react";
-import { IDevice } from "./interfaces";
+import { IDevice } from "./Interfaces";
 
 interface IProps {
   devices: IDevice[];
   fetchDevices: () => void;
 }
 
-const DeviceTable = ({ devices, fetchDevices }: IProps) => {
-
+const DevicesConfig = ({ devices, fetchDevices }: IProps) => {
   const deleteDevice = (deviceId: number): void => {
     fetch(`${import.meta.env.VITE_API_URL}/Device/DeleteDevice?deviceId=${deviceId}`, {
       method: "DELETE",
@@ -19,8 +18,15 @@ const DeviceTable = ({ devices, fetchDevices }: IProps) => {
   return (
     <div className="mx-8 py-8 ">
       <table className="min-w-full border-2 bg-slate-100">
-        {devices.length === 0 && <p>No hay dispositivos. <a href="./agregardispositivo" className="underline text-blue-500">Agregar Dispositivo</a></p>}
-        <thead className="bg-white">
+        {devices.length === 0 && (
+          <p>
+            No hay dispositivos.
+            <a href="./agregardispositivo" className="underline text-blue-500">
+              Agregar Dispositivo
+            </a>
+          </p>
+        )}
+        <thead className="bg-white border-b-2 border-slate/500">
           <tr>
             <th className="py-2 px-4 text-start">Descripción</th>
             <th className="py-2 px-4 text-start">Ubicación</th>
@@ -53,4 +59,4 @@ const DeviceTable = ({ devices, fetchDevices }: IProps) => {
   );
 };
 
-export default DeviceTable;
+export default DevicesConfig;
