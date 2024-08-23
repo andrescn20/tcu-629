@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
@@ -7,7 +8,7 @@ import './index.css'
 import TestTables from './TestTables.jsx'
 import Profile from './pages/Profile.jsx'
 import Home from './pages/Home.jsx'
-import AgregarDispositivo from './pages/AgregarDispositivo.jsx';
+import AgregarDispositivo from './pages/AgregarDispositivo.tsx';
 import PanelGeneral from './pages/PanelGeneral.tsx';
 import Configuracion from './pages/Configuracion.tsx';
 import Dispositivo from './pages/Dispositivo.tsx';
