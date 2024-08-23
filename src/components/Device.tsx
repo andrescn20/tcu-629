@@ -1,6 +1,6 @@
 import React from "react";
 import DeviceCard from "../components/DeviceCard";
-import { IDevice } from "./interfaces";
+import { IDevice } from "./Interfaces";
 import { PrimaryButton } from "../../node_modules/@fluentui/react/lib/Button";
 import { useNavigate } from 'react-router-dom';
 
