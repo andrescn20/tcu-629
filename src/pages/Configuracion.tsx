@@ -1,7 +1,6 @@
-import React, { useState, useEffect, act } from "react";
+import React, { useState} from "react";
 import Layout from "../components/Layout";
-import TypesForm from "../components/TypesForm";
-import { IDeviceType, ISensorType, IDevice } from "../components/Interfaces";
+import TypesForm from "../components/TypesConfig";
 import SensorsConfig from "../components/SensorsConfig";
 import BoardsConfig from "../components/BoardsConfig";
 import DevicesConfig from "../components/DevicesConfig";
@@ -16,57 +15,7 @@ const Configuracion = () => {
     TYPES: 4,
   };
 
-  const [deviceTypes, setDeviceTypes] = useState<IDeviceType[]>([]);
-  const [sensorTypes, setSensorTypes] = useState<ISensorType[]>([]);
-  const [devices, setDevices] = useState<IDevice[]>([]);
-  const [sensors, setSensors] = useState([]);
-  const [boards, setBoards] = useState([]);
   const [activeTab, setActiveTab] = useState<number>(TABS.SENSORS);
-
-  const fetchDeviceTypes = async () => {
-    const response = await fetch(url + "/Hardware/GetDeviceTypes?withDevices=false");
-    const data = await response.json();
-    setDeviceTypes(data);
-  };
-  const fetchSensorTypes = async () => {
-    const response = await fetch(url + "/Hardware/GetSensorTypes");
-    const data = await response.json();
-    setSensorTypes(data);
-  };
-
-  const fetchDevices = async () => {
-    const response = await fetch(url + "/Device/GetAllDevices");
-    const data = await response.json();
-    setDevices(data);
-  };
-
-  const deleteDevice = (deviceId: number): void => {
-    fetch(url + `/Device/DeleteDevice?deviceId=${deviceId}`, {
-      method: "DELETE",
-    }).then(() => {
-      fetchDevices();
-    });
-  };
-
-  const fetchSensors = async () => {
-    const response = await fetch(url + "/Hardware/GetAllSensors");
-    const data = await response.json();
-    setSensors(data);
-  };
-
-  const fetchBoards = async () => {
-    const response = await fetch(url + "/Hardware/GetAllBoards");
-    const data = await response.json();
-    setBoards(data);
-  };
-
-  useEffect(() => {
-    fetchDeviceTypes();
-    fetchSensorTypes();
-    fetchDevices();
-    fetchSensors();
-    fetchBoards();
-  }, []);
 
   return (
     <Layout>
@@ -103,18 +52,10 @@ const Configuracion = () => {
           className={`bg-slate-200 mx-8 rounded-b-md rounded-tr-md ${
             activeTab == TABS.DEVICES ? "rounded-tl-md" : ""
           }`}>
-          {activeTab == TABS.TYPES && (
-            <TypesForm
-              deviceTypes={deviceTypes}
-              sensorTypes={sensorTypes}
-              url={url}
-              fetchDeviceTypes={fetchDeviceTypes}
-              fetchSensorTypes={fetchSensorTypes}
-            />
-          )}
-          {activeTab == TABS.DEVICES && <DevicesConfig devices={devices} fetchDevices={fetchDevices} />}
-          {activeTab == TABS.SENSORS && <SensorsConfig sensors={sensors} fetchSensors={fetchSensors} />}
-          {activeTab == TABS.BOARDS && <BoardsConfig boards={boards} fetchBoards={fetchBoards}/>}
+          {activeTab == TABS.TYPES && <TypesForm />}
+          {activeTab == TABS.DEVICES && <DevicesConfig />}
+          {activeTab == TABS.SENSORS && <SensorsConfig />}
+          {activeTab == TABS.BOARDS && <BoardsConfig />}
         </div>
       </div>
     </Layout>
