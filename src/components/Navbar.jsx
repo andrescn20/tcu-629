@@ -10,7 +10,7 @@ const Navbar = () => {
       inicio: '/home',
       dispositivo: '/agregardispositivo',
       general: '/general',
-      ayuda: '/ayuda'
+      ayuda: '/configuracion'
     }
     navigate(pages[target]);
   }

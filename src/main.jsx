@@ -48,7 +48,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="/profile" element={<ProtectedRoute component={Profile} />} />
             <Route path='/agregardispositivo' element={<AgregarDispositivo />} />
             <Route path='/general' element={<PanelGeneral />} />
-            <Route path='/ayuda' element={<Configuracion />} />
+            <Route path='/configuracion' element={<Configuracion />} />
             <Route path='/dispositivo' element={<Dispositivo />} />
             <Route
               path="tablestest"
