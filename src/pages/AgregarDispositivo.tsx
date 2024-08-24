@@ -87,7 +87,6 @@ const AgregarDispositivo = () => {
       if(device.deviceId !== null) {
       createdDeviceId = device.deviceId;
       }
-      createdDeviceId = 0;
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -99,7 +98,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> 
     try {
         const deviceId: number = await createDevice();
         alert(`Dispositvo creado con éxito 
-                            Id Dispositivo: ${deviceId}`);
+              Id Dispositivo: ${deviceId}`);
         navigate("/home");
     } catch (error) {
         alert("ATENCION: Error al crear el dispositivo");

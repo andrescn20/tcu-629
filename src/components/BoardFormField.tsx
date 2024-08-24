@@ -41,7 +41,7 @@ export const SensorFormField = ({ boards, setBoardId }: IProps) => {
     setBoardId(selectedBoardId);
   }, [selectedBoardId]);
 
-  return boards.some((board) => board.isInstalled) ? (
+  return !boards.some((board) => board.isInstalled) ? (
       <div className="my-2">
         <p>No hay Placas Disponibles</p>
         <a className="underline text-blue-400" href="./configuracion">
