@@ -41,18 +41,25 @@ export const SensorFormField = ({ boards, setBoardId }: IProps) => {
     setBoardId(selectedBoardId);
   }, [selectedBoardId]);
 
-  return (
+  return boards.some((board) => board.isInstalled) ? (
+      <div className="my-2">
+        <p>No hay Placas Disponibles</p>
+        <a className="underline text-blue-400" href="./configuracion">
+          Agregar Placas
+        </a>
+      </div>
+    ) : (
     <Dropdown
       required={true}
       placeholder="Seleccione una opción"
-      value={selectedBoardId}
-      label="Sensores Disponibles"
+      label="Placas  Disponibles"
       options={dropdownOptions}
       styles={dropdownStyles}
       onChange={(e, item) => {
-        setSelectedBoardId(item.key);
+        if (item) {
+          setSelectedBoardId(Number(item.key));
+        }
       }}
-    />
-  );
+    />)
 };
 export default SensorFormField;
