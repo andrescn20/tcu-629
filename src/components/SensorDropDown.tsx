@@ -22,14 +22,15 @@ const SensorDropDown = ({index, options, updateSelectedSensors}: IProps) => {
     }, [selectedId]);
   return (
     <Dropdown
-      required={true}
       placeholder="Seleccione una opción"
-      value={selectedId}
+      selectedKey={selectedId}
       label="Sensores Disponibles"
       options={options}
       styles={dropdownStyles}
       onChange={(e, item) => {
-        setSelectedId(item.key);
+        if (item) {
+          setSelectedId(item.key as number);
+        }
       }}
     />
   );
