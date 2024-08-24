@@ -38,7 +38,7 @@ export const SensorFormField = ({ sensors, setSensor, currentSelection }: IProps
     const newSelectedSensors = [...selectedSensorIds];
     newSelectedSensors.pop();
     setSelectedSensorIds(newSelectedSensors);
-  }
+  };
 
   const removeSensorField = () => {
     removeLastSensor();
@@ -59,7 +59,14 @@ export const SensorFormField = ({ sensors, setSensor, currentSelection }: IProps
     generateDropdownOptions();
   }, [currentSelection]);
 
-  return (
+  return !sensors.some((sensor) => sensor.isAvailable) ? (
+    <div className="my-2">
+      <p>No hay sensores disponibles</p>
+      <a className="underline text-blue-400" href="./configuracion">
+        Agregar Sensores
+      </a>
+    </div>
+  ) : (
     <>
       <PrimaryButton
         className="mt-4"
@@ -72,6 +79,7 @@ export const SensorFormField = ({ sensors, setSensor, currentSelection }: IProps
         text="Eliminar Sensor"
         onClick={() => removeSensorField()}
       />
+
       {sensorFields.map((field, index) => {
         return (
           <>
