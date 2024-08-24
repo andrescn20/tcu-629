@@ -1,19 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { IDevice } from "./Interfaces";
 
-interface IProps {
-  devices: IDevice[];
-  fetchDevices: () => void;
-}
+const DevicesConfig = () => {
+  const url = import.meta.env.VITE_API_URL;
 
-const DevicesConfig = ({ devices, fetchDevices }: IProps) => {
+  const [devices, setDevices] = useState<IDevice[]>([]);
+
   const deleteDevice = (deviceId: number): void => {
-    fetch(`${import.meta.env.VITE_API_URL}/Device/DeleteDevice?deviceId=${deviceId}`, {
+    fetch(`${url}/Device/DeleteDevice?deviceId=${deviceId}`, {
       method: "DELETE",
     }).then(() => {
       fetchDevices();
     });
   };
+
+  const fetchDevices = async () => {
+    const response = await fetch(url + "/Device/GetAllDevices");
+    const data = await response.json();
+    setDevices(data);
+  };
+
+  useEffect(() => {
+    fetchDevices();
+  }, []);
 
   return (
     <div className="mx-8 py-8 ">

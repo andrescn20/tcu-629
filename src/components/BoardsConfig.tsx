@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IBoard } from "./Interfaces";
+import BoardForm from "./BoardForm";
+import { PrimaryButton } from "@fluentui/react";
 
-interface IProps {
-  boards: IBoard[];
-  fetchBoards: () => void;
-}
-export const BoardsConfig = ({ boards, fetchBoards }: IProps) => {
-  
-    const url = import.meta.env.VITE_API_URL;
+export const BoardsConfig = () => {
+  const url = import.meta.env.VITE_API_URL;
+
+  const [boards, setBoards] = useState<IBoard[]>([]);
+  const [showBoardForm, setShowBoardForm] = useState<boolean>(false);
 
   const deleteBoard = (boardId: number): void => {
     fetch(url + `/Board/DeleteBoardById?boardId=${boardId}`, {
@@ -17,17 +17,31 @@ export const BoardsConfig = ({ boards, fetchBoards }: IProps) => {
     });
   };
 
+  const fetchBoards = async () => {
+    const response = await fetch(url + "/Board/GetAllBoards");
+    const data = await response.json();
+    setBoards(data);
+  };
+
+  useEffect(() => {
+    fetchBoards();
+  }, []);
+
   return (
     <div className="mx-8 py-8 ">
+      <PrimaryButton
+        className="mb-4 w-48"
+        text={showBoardForm ? "Cancelar" : "Agregar Controlador"}
+        onClick={() => setShowBoardForm((showBoardForm) => !showBoardForm)}
+      />
+      {showBoardForm && (
+        <div>
+          <BoardForm fetchBoards={fetchBoards} />
+        </div>
+      )}
+      <p className="font-bold underline pl-1">Controladores</p>
       <table className="min-w-full border-2 bg-slate-100">
-        {boards.length === 0 && (
-          <p>
-            No hay dispositivos.
-            <a href="./agregardispositivo" className="underline text-blue-500">
-              Agregar Dispositivo
-            </a>
-          </p>
-        )}
+        {boards.length === 0 && <p>No hay dispositivos.</p>}
         <thead className="bg-white border-b-2 border-slate/500">
           <tr>
             <th className="py-2 px-4 text-start">Descripción</th>
