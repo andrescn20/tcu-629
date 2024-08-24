@@ -2,7 +2,7 @@ export interface INewDevice {
   deviceTypeId: number;
   description: string;
   location: string;
-  sensors: number[];
+  sensorIds: number[];
   boardId: number;
 }
 
@@ -16,33 +16,37 @@ export interface IDevice {
   sensors: ISensor[];
   board: IBoard;
 }
-export interface IBoard {
+
+export interface INewBoard {
+    microcontroller: string;
+    description: string;
+    boardSerial: string;
+  }
+
+export interface IBoard extends INewBoard {
   boardId: number;
-  microcontroller: string;
-  description: string;
   isInstalled: boolean;
 }
 
-export interface ISensor {
+export interface INewSensor {
+    sensorTypeId: number;
+    description: string;
+    sensorName: string;
+    sensorAddress: string;
+  }
+
+export interface ISensor extends INewSensor {
   sensorId: number;
-  sensorTypeId: number;
-  description: string;
-  sensorName: string;
   sensorType: string;
   isAvailable: boolean;
-}
-
-export interface IDeviceType {
-  typeId: number;
-  type: string;
-}
-
-export interface ISensorType {
-  sensorTypeId: number;
-  type: string;
 }
 
 export interface IDDOptions {
   key: number;
   text: string;
 }
+
+export interface IType {
+    typeId: number;
+    type: string;
+  }
