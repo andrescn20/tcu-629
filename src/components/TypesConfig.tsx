@@ -89,7 +89,7 @@ const TypesForm = () => {
                     }} />
                 <PrimaryButton className="mb-2" text="Agregar" onClick={(e) => handleNewSensorSubmit(e.target.value)} />
                 <p className="font-bold" > Tipos de sensores registrados: </p>
-                {renderTypesTable(sensorTypes, "sensor")}
+                {deviceTypes.length === 0 ? <p>No hay tipos que mostrar</p> : renderTypesTable(sensorTypes, "sensor")}
             </div>
             <div className="w-1/3">
                 <p className='font-bold mt-4 text-lg'>Tipos de Dispositivos</p>
@@ -99,7 +99,7 @@ const TypesForm = () => {
                     }} />
                 <PrimaryButton className="mb-2" text="Agregar" onClick={() => handleNewDeviceSubmit()} />
                 <p className="font-bold" > Tipos de dispositivos registrados: </p>
-                {renderTypesTable(deviceTypes, "device")}
+                {deviceTypes.length === 0 ? <p>No hay tipos que mostrar</p> : renderTypesTable(deviceTypes, "device")}
             </div>
         </div>
     );

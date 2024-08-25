@@ -29,16 +29,19 @@ export const SensorsConfig = () => {
 
   return (
     <div className="mx-8 py-8">
-      <PrimaryButton className="mb-4 w-48"
-       text={showForm ? "Cancelar":"Agregar Sensor"} onClick={() => setShowForm(showForm => !showForm)} />
+      <PrimaryButton
+        className="mb-4 w-48"
+        text={showForm ? "Cancelar" : "Agregar Sensor"}
+        onClick={() => setShowForm((showForm) => !showForm)}
+      />
       {showForm && (
         <div>
           <SensorForm fetchSensors={fetchSensors} setShowForm={setShowForm} />
         </div>
       )}
       <p className="font-bold underline pl-1">Sensores</p>
+      {sensors.length === 0 ? <p>No hay sensores que mostrar.</p> : (
       <table className="min-w-full border-2 bg-slate-100">
-        {sensors.length === 0 && <p>No hay sensores que mostrar.</p>}
         <thead className="bg-white border-b-2 border-slate/500">
           <tr>
             <th className="py-2 px-4 text-start">ID</th>
@@ -75,7 +78,7 @@ export const SensorsConfig = () => {
             );
           })}
         </tbody>
-      </table>
+      </table>)}
     </div>
   );
 };
