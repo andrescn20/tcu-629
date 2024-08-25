@@ -69,7 +69,6 @@ const AgregarDispositivo = () => {
       alert("No puede seleccionar el mismo sensor más de una vez");
       throw new Error();
     }
-    console.log("Creating Device");
     try {
       const response = await fetch(url + "/Device/CreateNewDevice", {
         method: "POST",
@@ -81,8 +80,6 @@ const AgregarDispositivo = () => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      const data = await response.json();
-      console.log(data);
       const device: IDevice = await response.json();
       if(device.deviceId !== null) {
       createdDeviceId = device.deviceId;
@@ -153,10 +150,6 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> 
   useEffect(() => {
     setNewDevice({ ...newDevice, boardId: selectedBoardId });
   }, [selectedBoardId]);
-
-  useEffect(() => {
-    console.log(newDevice);
-  }, [newDevice]);
 
   return (
     <Layout>

@@ -33,8 +33,6 @@ const TypesForm = () => {
         });
         setNewSensorType("");
         fetchSensorTypes();
-        const data = await response.json();
-        console.log(data);
     }
 
     const handleNewDeviceSubmit = async () => {
@@ -47,8 +45,6 @@ const TypesForm = () => {
         });
         setNewDeviceType("");
         fetchDeviceTypes();
-        const data = await response.json();
-        console.log(data);
     }
 
     const deleteType = async (typeId:number, category:string) => {

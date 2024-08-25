@@ -8,12 +8,10 @@ const PanelGeneral = () => {
   const [devices, setDevices] = useState<IDevice[]>([]);
 
   const url = import.meta.env.VITE_API_URL;
-  console.log(url);
+
   const fetchData = async () => {
     const response = await fetch(url + "/Device/GetAllDevices");
-    console.log(response);
     const devices = await response.json();
-    console.log(devices);
     setDevices(devices);
   };
 

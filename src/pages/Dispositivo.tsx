@@ -15,9 +15,7 @@ const Dispositivo = () => {
 
   const fetchData = async () => {
     const response = await fetch(url + "/Device/GetAllDevices");
-    console.log(response);
     const devices = await response.json();
-    console.log(devices);
     setDevices(devices);
   };
 
