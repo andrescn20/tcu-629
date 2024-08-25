@@ -44,8 +44,8 @@ export const SensorsConfig = () => {
       <table className="min-w-full border-2 bg-slate-100">
         <thead className="bg-white border-b-2 border-slate/500">
           <tr>
-            <th className="py-2 px-4 text-start">ID</th>
             <th className="py-2 px-4 text-start">Descripción</th>
+            <th className="py-2 px-4 text-start">Address</th>
             <th className="py-2 px-4 text-start">Disponible</th>
             <th className="py-2 px-4 text-start">Nombre</th>
             <th className="py-2 px-4 text-start">Tipo</th>
@@ -56,8 +56,8 @@ export const SensorsConfig = () => {
           {sensors.map((sensor, index) => {
             return (
               <tr key={sensor.sensorId} className={`${index % 2 !== 0 ? "bg-slate-300" : ""}`}>
-                <td className="py-2 px-4">{sensor.sensorId}</td>
                 <td className="py-2 px-4">{sensor.description}</td>
+                <td className="py-2 px-4">{sensor.sensorAddress}</td>
                 <td className={`py-2 px-4 ${sensor.isAvailable ? "text-green-700" : "text-red-700"}`}>
                   {sensor.isAvailable ? "Disponible " : "En Uso"}
                 </td>
