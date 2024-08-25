@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { IDevice } from "./Interfaces";
+import { useNavigate } from "react-router-dom";
 
 const DevicesConfig = () => {
   const url = import.meta.env.VITE_API_URL;
+  const navigate = useNavigate();
 
   const [devices, setDevices] = useState<IDevice[]>([]);
 
@@ -26,15 +28,15 @@ const DevicesConfig = () => {
 
   return (
     <div className="mx-8 py-8 ">
+      {devices.length === 0 ? (
+        <p>
+          No hay dispositivos.
+          <a href="./agregardispositivo" className="underline text-blue-500">
+            Agregar Dispositivo
+          </a>
+        </p>
+      ):(
       <table className="min-w-full border-2 bg-slate-100">
-        {devices.length === 0 && (
-          <p>
-            No hay dispositivos.
-            <a href="./agregardispositivo" className="underline text-blue-500">
-              Agregar Dispositivo
-            </a>
-          </p>
-        )}
         <thead className="bg-white border-b-2 border-slate/500">
           <tr>
             <th className="py-2 px-4 text-start">Descripción</th>
@@ -59,11 +61,18 @@ const DevicesConfig = () => {
                     />{" "}
                   </svg>
                 </button>
+                <button onClick={() => navigate(`/dispositivo?deviceId=${device.deviceId}`)}>
+                  <svg height="18" viewBox="0 0 48 48" width="41" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 0h48v48h-48z" fill="none" />
+                    <path d="M22 34h4v-12h-4v12zm2-30c-11.05 0-20 8.95-20 20s8.95 20 20 20 20-8.95 20-20-8.95-20-20-20zm0 36c-8.82 0-16-7.18-16-16s7.18-16 16-16 16 7.18 16 16-7.18 16-16 16zm-2-22h4v-4h-4v4z" />
+                  </svg>
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      )}
     </div>
   );
 };
