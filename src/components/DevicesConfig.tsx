@@ -39,8 +39,10 @@ const DevicesConfig = () => {
       <table className="min-w-full border-2 bg-slate-100">
         <thead className="bg-white border-b-2 border-slate/500">
           <tr>
-            <th className="py-2 px-4 text-start">Descripción</th>
-            <th className="py-2 px-4 text-start">Ubicación</th>
+          <th className="py-2 px-4 text-start">Descripción</th>
+          <th className="py-2 px-4 text-start">Ubicación</th>
+          <th className="py-2 px-4 text-start">Sensor</th>
+          <th className="py-2 px-4 text-start">Controlador</th>
             <th className="py-2 px-4 text-start">Tipo de Dispositivo</th>
             <th className="py-2 px-4 text-start">Acciones</th>
           </tr>
@@ -50,6 +52,8 @@ const DevicesConfig = () => {
             <tr key={device.deviceId} className={`${index % 2 !== 0 ? "bg-slate-300" : ""}`}>
               <td className="py-2 px-4">{device.description}</td>
               <td className="py-2 px-4">{device.location}</td>
+              <td className="py-2 px-4">{device.boards[0].sensors[0].sensorAddress}</td>
+              <td className="py-2 px-4">{device.boards[0].boardSerial}</td>
               <td className="py-2 px-4">{device.deviceType}</td>
               <td className="py-2 px-4">
                 <button onClick={() => deleteDevice(device.deviceId)}>
