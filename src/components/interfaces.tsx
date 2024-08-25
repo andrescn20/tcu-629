@@ -13,8 +13,7 @@ export interface IDevice {
   location: string;
   added_at: Date;
   deviceType: string;
-  sensors: ISensor[];
-  board: IBoard;
+  boards: IBoard[];
 }
 
 export interface INewBoard {
@@ -26,6 +25,7 @@ export interface INewBoard {
 export interface IBoard extends INewBoard {
   boardId: number;
   isInstalled: boolean;
+  sensors: ISensor[];
 }
 
 export interface INewSensor {
