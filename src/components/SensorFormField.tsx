@@ -22,7 +22,7 @@ export const SensorFormField = ({ sensors, setSensor, currentSelection }: IProps
       if (!sensor.isAvailable) return;
       options.push({
         key: sensor.sensorId,
-        text: `Descripción: ${sensor.description} | Tipo: ${sensor.sensorType}| ${sensor.sensorAddress} `,
+        text: `Descripción: ${sensor.description} | Tipo: ${sensor.sensorType} | ${sensor.sensorAddress} `,
       });
     });
     setDropdownOptions(options);

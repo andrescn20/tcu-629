@@ -27,7 +27,7 @@ export const SensorFormField = ({ boards, setBoardId }: IProps) => {
       if (board.isInstalled) return;
       options.push({
         key: board.boardId,
-        text: `Id: ${board.boardId} | Micro: ${board.microcontroller} | Descripción: ${board.description}`,
+        text: `Descripción: ${board.description} | Micro: ${board.microcontroller} | Serial: ${board.boardSerial} `,
       });
     });
     setDropdownOptions(options);
@@ -39,9 +39,10 @@ export const SensorFormField = ({ boards, setBoardId }: IProps) => {
 
   useEffect(() => {
     setBoardId(selectedBoardId);
+    console.log(boards)
   }, [selectedBoardId]);
 
-  return !boards.some((board) => board.isInstalled) ? (
+  return boards.some((board) => board.isInstalled) ? (
       <div className="my-2">
         <p>No hay Placas Disponibles</p>
         <a className="underline text-blue-400" href="./configuracion">
