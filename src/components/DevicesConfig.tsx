@@ -30,9 +30,8 @@ const DevicesConfig = () => {
     <div className="mx-8 py-8 ">
       {devices.length === 0 ? (
         <p>
-          No hay dispositivos.
-          <a href="./agregardispositivo" className="underline text-blue-500">
-            Agregar Dispositivo
+          {"No hay dispositivos. "} 
+          <a href="./agregardispositivo" className="underline text-blue-500">Agregar Dispositivo
           </a>
         </p>
       ):(
