@@ -5,8 +5,9 @@ import { PrimaryButton } from "@fluentui/react";
 
 interface IProps {
   fetchBoards: () => void;
+  setShowBoardForm: (value: boolean) => void;
 }
-const BoardForm = ({fetchBoards}:IProps) => {
+const BoardForm = ({fetchBoards, setShowBoardForm}:IProps) => {
 
   const url = import.meta.env.VITE_API_URL;
 
@@ -29,6 +30,7 @@ const BoardForm = ({fetchBoards}:IProps) => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       fetchBoards();
+      setShowBoardForm(false)
   };
 
 
