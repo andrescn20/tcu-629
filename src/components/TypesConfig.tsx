@@ -53,9 +53,10 @@ const TypesForm = () => {
             device: "Device"
         }
         const selectedCategory = categoryMapper[category];
-        await fetch(url + `/${selectedCategory}/Delete${selectedCategory}Type?typeId=${typeId}`, {
+        const response = await fetch(url + `/${selectedCategory}/Delete${selectedCategory}Type?typeId=${typeId}`, {
             method: 'DELETE',
         });
+        if(!response.ok) alert(`Error al eliminar. Verifique que no esté asociado a un ${category} existente.`);
         if (category === "sensor") fetchSensorTypes();
         if (category === "device") fetchDeviceTypes();
     }
@@ -85,7 +86,7 @@ const TypesForm = () => {
                     }} />
                 <PrimaryButton className="mb-2" text="Agregar" onClick={(e) => handleNewSensorSubmit(e.target.value)} />
                 <p className="font-bold" > Tipos de sensores registrados: </p>
-                {deviceTypes.length === 0 ? <p>No hay tipos que mostrar</p> : renderTypesTable(sensorTypes, "sensor")}
+                {sensorTypes.length === 0 ? <p>No hay tipos que mostrar</p> : renderTypesTable(sensorTypes, "sensor")}
             </div>
             <div className="w-1/3">
                 <p className='font-bold mt-4 text-lg'>Tipos de Dispositivos</p>
