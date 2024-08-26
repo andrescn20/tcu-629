@@ -70,9 +70,6 @@ const SensorForm = ({ fetchSensors, setShowForm }: IProps) => {
     generateDropdownOptions();
   }, [sensorTypes]);
 
-  useEffect(() => {
-    console.log(newSensor);
-  }, [newSensor]);
   return (
     <div className="my-2 space-y-4 flex flex-col items-center">
       <form
@@ -91,7 +88,7 @@ const SensorForm = ({ fetchSensors, setShowForm }: IProps) => {
           }}
         />
         <TextField
-          className="col-start-1 row-start-3"
+          className="col-start-2 row-start-2"
           label="Nombre"
           required
           value={newSensor.sensorName}
@@ -100,7 +97,7 @@ const SensorForm = ({ fetchSensors, setShowForm }: IProps) => {
           }}
         />
         <TextField
-          className="col-start-2 row-start-2"
+          className="col-start-1 row-start-3"
           label="Descripción"
           required
           value={newSensor.description}
