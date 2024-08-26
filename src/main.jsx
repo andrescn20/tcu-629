@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-route
 import { Auth0Provider, withAuthenticationRequired } from '@auth0/auth0-react';
 import Login from './pages/Login.jsx'
 import './index.css'
-import TestTables from './TestTables.jsx'
 import Profile from './pages/Profile.jsx'
 import Home from './pages/Home.jsx'
 import AgregarDispositivo from './pages/AgregarDispositivo.tsx';
@@ -50,12 +49,6 @@ createRoot(document.getElementById('root')).render(
             <Route path='/general' element={<PanelGeneral />} />
             <Route path='/configuracion' element={<Configuracion />} />
             <Route path='/dispositivo' element={<Dispositivo />} />
-            <Route
-              path="tablestest"
-              element={
-                <ProtectedRoute component={TestTables} />
-              }
-            />
           </Routes>
         </Auth0ProviderWithRedirectCallback>
       </Router>
