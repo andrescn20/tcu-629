@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { IDevice, INewDevice, IType } from "../utils/Interfaces";
 import SensorFormField from "../components/SensorFormField";
 import BoardFormField from "../components/BoardFormField";
-import fetchWithAuth from "../utils/fetchwithauth";
+import fetchWithAuth from "../utils/fetchWithAuth";
 
 const AgregarDispositivo = () => {
   const url = import.meta.env.VITE_API_URL;

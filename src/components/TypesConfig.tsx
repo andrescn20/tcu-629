@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { TextField } from '@fluentui/react/lib/TextField';
 import { PrimaryButton } from "@fluentui/react";
 import { IType } from "../utils/Interfaces";
-import fetchWithAuth from "../utils/fetchwithauth";
+import fetchWithAuth from "../utils/fetchWithAuth";
 
 const TypesForm = () => {
     const url = import.meta.env.VITE_API_URL;

@@ -3,7 +3,7 @@ import { Dropdown } from "@fluentui/react/lib/Dropdown";
 import { TextField } from "@fluentui/react/lib/TextField";
 import { IDDOptions, INewSensor, ISensor, IType } from "../utils/Interfaces";
 import { PrimaryButton } from "@fluentui/react";
-import fetchWithAuth from "../utils/fetchwithauth";
+import fetchWithAuth from "../utils/fetchWithAuth";
 
 interface IProps {
   fetchSensors: () => void;

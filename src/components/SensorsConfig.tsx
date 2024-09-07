@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ISensor } from "../utils/Interfaces";
 import SensorForm from "./SensorForm";
 import { DefaultButton, PrimaryButton } from "@fluentui/react";
-import fetchWithAuth from "../utils/fetchwithauth";
+import fetchWithAuth from "../utils/fetchWithAuth";
 
 export const SensorsConfig = () => {
   const url = import.meta.env.VITE_API_URL;

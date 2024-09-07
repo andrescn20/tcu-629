@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IBoard } from "../utils/Interfaces";
 import BoardForm from "./BoardForm";
 import { PrimaryButton } from "@fluentui/react";
-import fetchWithAuth from "../utils/fetchwithauth";
+import fetchWithAuth from "../utils/fetchWithAuth";
 
 export const BoardsConfig = () => {
   const url = import.meta.env.VITE_API_URL;

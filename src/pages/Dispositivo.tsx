@@ -4,7 +4,7 @@ import Layout from "../components/Layout";
 import Device from "../components/Device";
 import { IDevice } from "../utils/Interfaces";
 import { useSearchParams } from "react-router-dom";
-import fetchWithAuth from "../utils/fetchwithauth";
+import fetchWithAuth from "../utils/fetchWithAuth";
 
 const Dispositivo = () => {
   const [queryParameters] = useSearchParams();
