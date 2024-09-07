@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { IDevice } from "./Interfaces";
+import { IDevice } from "../utils/Interfaces";
 import { useNavigate } from "react-router-dom";
+import fetchWithAuth from "../utils/fetchWithAuth";
 
 const DevicesConfig = () => {
   const url = import.meta.env.VITE_API_URL;
@@ -9,7 +10,7 @@ const DevicesConfig = () => {
   const [devices, setDevices] = useState<IDevice[]>([]);
 
   const deleteDevice = (deviceId: number): void => {
-    fetch(`${url}/Device/DeleteDevice?deviceId=${deviceId}`, {
+    fetchWithAuth(`${url}/Device/DeleteDevice?deviceId=${deviceId}`, {
       method: "DELETE",
     }).then(() => {
       fetchDevices();
@@ -17,7 +18,7 @@ const DevicesConfig = () => {
   };
 
   const fetchDevices = async () => {
-    const response = await fetch(url + "/Device/GetAllDevices");
+    const response = await fetchWithAuth(url + "/Device/GetAllDevices");
     const data = await response.json();
     setDevices(data);
   };

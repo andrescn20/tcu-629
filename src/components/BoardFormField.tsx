@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Dropdown } from "@fluentui/react/lib/Dropdown";
-import { IBoard } from "./Interfaces";
-import { IComboBox } from "../../node_modules/@fluentui/react/lib/ComboBox";
+import { IBoard } from "../utils/Interfaces";
 
 interface IProps {
   boards: IBoard[];
-  setBoardId: (id:number) => void;
+  setBoardId: (id: number) => void;
 }
 
 interface IDDOptions {
@@ -20,6 +19,7 @@ const dropdownStyles = {
 export const SensorFormField = ({ boards, setBoardId }: IProps) => {
   const [selectedBoardId, setSelectedBoardId] = useState<number>(0);
   const [dropdownOptions, setDropdownOptions] = useState<IDDOptions[]>([]);
+  const [availableBoards, setAvailableBoards] = useState<boolean>(false);
 
   const generateDropdownOptions = () => {
     const options: IDDOptions[] = [];
@@ -39,17 +39,26 @@ export const SensorFormField = ({ boards, setBoardId }: IProps) => {
 
   useEffect(() => {
     setBoardId(selectedBoardId);
-    console.log(boards)
+    console.log(boards);
   }, [selectedBoardId]);
 
-  return boards.some((board) => board.isInstalled) ? (
-      <div className="my-2">
-        <p>No hay Placas Disponibles</p>
-        <a className="underline text-blue-400" href="./configuracion">
-          Agregar Placas
-        </a>
-      </div>
-    ) : (
+  useEffect(()=>{
+    if(boards.length == 0) setAvailableBoards(false)
+    boards.map((board) => {
+      if (!board.isInstalled){
+        setAvailableBoards(true);
+      }
+    })
+  }, [boards])
+
+  return !availableBoards ? (
+    <div className="my-2">
+      <p>No hay Placas Disponibles</p>
+      <a className="underline text-blue-400" href="./configuracion">
+        Agregar Placas
+      </a>
+    </div>
+  ) : (
     <Dropdown
       required={true}
       placeholder="Seleccione una opción"
@@ -61,6 +70,7 @@ export const SensorFormField = ({ boards, setBoardId }: IProps) => {
           setSelectedBoardId(Number(item.key));
         }
       }}
-    />)
+    />
+  );
 };
 export default SensorFormField;

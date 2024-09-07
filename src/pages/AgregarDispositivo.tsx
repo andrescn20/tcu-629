@@ -4,9 +4,10 @@ import { Dropdown } from "@fluentui/react/lib/Dropdown";
 import { TextField } from "@fluentui/react/lib/TextField";
 import { PrimaryButton } from "@fluentui/react";
 import { useNavigate } from "react-router-dom";
-import { IDevice, INewDevice, IType } from "../components/Interfaces";
+import { IDevice, INewDevice, IType } from "../utils/Interfaces";
 import SensorFormField from "../components/SensorFormField";
 import BoardFormField from "../components/BoardFormField";
+import fetchWithAuth from "../utils/fetchWithAuth";
 
 const AgregarDispositivo = () => {
   const url = import.meta.env.VITE_API_URL;
@@ -70,7 +71,7 @@ const AgregarDispositivo = () => {
       throw new Error();
     }
     try {
-      const response = await fetch(url + "/Device/CreateNewDevice", {
+      const response = await fetchWithAuth(url + "/Device/CreateNewDevice", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -112,25 +113,25 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> 
   };
 
   const fetchDeviceTypes = async () => {
-    const response = await fetch(url + "/Device/GetDeviceTypes?withDevices=false");
+    const response = await fetchWithAuth(url + "/Device/GetDeviceTypes?withDevices=false");
     const data = await response.json();
     setDeviceTypes(data);
     generateDeviceTypeOptions(data);
   };
   const fetchSensorTypes = async () => {
-    const response = await fetch(url + "/Sensor/GetSensorTypes");
+    const response = await fetchWithAuth(url + "/Sensor/GetSensorTypes");
     const data = await response.json();
     setSensorTypes(data);
   };
 
   const fetchSensors = async () => {
-    const response = await fetch(url + "/Sensor/GetAllSensors");
+    const response = await fetchWithAuth(url + "/Sensor/GetAllSensors");
     const data = await response.json();
     setSensors(data);
   };
 
   const fetchBoards = async () => {
-    const response = await fetch(url + "/Board/GetAllBoards");
+    const response = await fetchWithAuth(url + "/Board/GetAllBoards");
     const data = await response.json();
     setBoards(data);
   };
