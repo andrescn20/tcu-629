@@ -14,7 +14,7 @@ const Login = () => {
 
   const handleLogin = (token) => {
     if (token) {
-      navigate('/home');
+      navigate('/');
     }
   };
   return (

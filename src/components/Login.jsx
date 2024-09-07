@@ -8,12 +8,12 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleSignUp = async () => {
-    navigate('/home');
+    navigate('/');
   };
 
   const handleLogin = (token) => {
     if (token) {
-      navigate('/home');
+      navigate('/');
     }
   };
   return (

@@ -96,7 +96,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> 
     try {
         const deviceId: number = await createDevice();
         alert(`Dispositvo creado con éxito. Id: ${deviceId}`);
-        navigate("/home");
+        navigate("/");
     } catch (error) {
         alert("ATENCION: Error al crear el dispositivo");
         console.error(error);

@@ -8,7 +8,7 @@ const Navbar = () => {
   const navBarClick = (e) => {
     const target = e.target.value;
     const pages = {
-      inicio: '/home',
+      inicio: '/',
       dispositivo: '/agregardispositivo',
       general: '/general',
       ayuda: '/configuracion'
