@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { IDDOptions } from "./Interfaces";
+import { IDDOptions } from "../utils/Interfaces";
 import { Dropdown } from "@fluentui/react/lib/Dropdown";
 
 interface IProps {

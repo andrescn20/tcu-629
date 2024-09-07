@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Dropdown } from "@fluentui/react/lib/Dropdown";
 import { TextField } from "@fluentui/react/lib/TextField";
-import { IDDOptions, INewSensor, ISensor, IType } from "./Interfaces";
+import { IDDOptions, INewSensor, ISensor, IType } from "../utils/Interfaces";
 import { PrimaryButton } from "@fluentui/react";
+import fetchWithAuth from "../utils/fetchwithauth";
 
 interface IProps {
   fetchSensors: () => void;
@@ -38,7 +39,7 @@ const SensorForm = ({ fetchSensors, setShowForm }: IProps) => {
   };
 
   const fetchSensorTypes = async () => {
-    const response = await fetch(url + "/Sensor/GetSensorTypes");
+    const response = await fetchWithAuth(url + "/Sensor/GetSensorTypes");
     const data = await response.json();
     setSensorTypes(data);
   };
@@ -49,7 +50,7 @@ const SensorForm = ({ fetchSensors, setShowForm }: IProps) => {
       alert("Debe seleccionar el tipo de sensor");
       return;
     }
-    const response = await fetch(url + "/Sensor/CreateNewSensor", {
+    const response = await fetchWithAuth(url + "/Sensor/CreateNewSensor", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

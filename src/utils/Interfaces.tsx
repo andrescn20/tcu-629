@@ -50,3 +50,14 @@ export interface IType {
     typeId: number;
     type: string;
   }
+
+
+export interface ITemperatureData {
+  id: number,
+  temperature: number,
+  timestamp: Date,
+  sensorAddress: string,
+  sensorId: number,
+  boardId: number,
+  deviceId:number
+}

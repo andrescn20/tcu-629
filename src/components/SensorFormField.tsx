@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { ISensor } from "./Interfaces";
+import { ISensor } from "../utils/Interfaces";
 import { PrimaryButton } from "@fluentui/react";
 import { DefaultButton } from "@fluentui/react";
 import SensorDropDown from "./SensorDropDown";
-import { IDDOptions } from "./Interfaces";
+import { IDDOptions } from "../utils/Interfaces";
 
 interface IProps {
   sensors: ISensor[];
