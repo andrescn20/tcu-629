@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import Device from "../components/Device";
 import { IDevice } from "../utils/Interfaces";
 import { Spinner } from "@fluentui/react";
-import fetchWithAuth from "../utils/fetchwithauth";
+import fetchWithAuth from "../utils/fetchWithAuth";
 
 const PanelGeneral = () => {
 
