@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { ISensor } from "./Interfaces";
+import { ISensor } from "../utils/Interfaces";
 import SensorForm from "./SensorForm";
 import { DefaultButton, PrimaryButton } from "@fluentui/react";
+import fetchWithAuth from "../utils/fetchwithauth";
 
 export const SensorsConfig = () => {
   const url = import.meta.env.VITE_API_URL;
@@ -10,7 +11,7 @@ export const SensorsConfig = () => {
   const [showForm, setShowForm] = useState<boolean>(false);
 
   const deleteSensor = (sensorId: number): void => {
-    fetch(url + `/Sensor/DeleteSensorById?sensorId=${sensorId}`, {
+    fetchWithAuth(url + `/Sensor/DeleteSensorById?sensorId=${sensorId}`, {
       method: "DELETE",
     }).then(() => {
       fetchSensors();
@@ -18,7 +19,7 @@ export const SensorsConfig = () => {
   };
 
   const fetchSensors = async () => {
-    const response = await fetch(url + "/Sensor/GetAllSensors");
+    const response = await fetchWithAuth(url + "/Sensor/GetAllSensors");
     const data = await response.json();
     setSensors(data);
   };

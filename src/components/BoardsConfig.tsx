@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { IBoard } from "./Interfaces";
+import { IBoard } from "../utils/Interfaces";
 import BoardForm from "./BoardForm";
 import { PrimaryButton } from "@fluentui/react";
+import fetchWithAuth from "../utils/fetchwithauth";
 
 export const BoardsConfig = () => {
   const url = import.meta.env.VITE_API_URL;
@@ -10,7 +11,7 @@ export const BoardsConfig = () => {
   const [showBoardForm, setShowBoardForm] = useState<boolean>(false);
 
   const deleteBoard = (boardId: number): void => {
-    fetch(url + `/Board/DeleteBoardById?boardId=${boardId}`, {
+    fetchWithAuth(url + `/Board/DeleteBoardById?boardId=${boardId}`, {
       method: "DELETE",
     }).then(() => {
       fetchBoards();
@@ -18,7 +19,7 @@ export const BoardsConfig = () => {
   };
 
   const fetchBoards = async () => {
-    const response = await fetch(url + "/Board/GetAllBoards");
+    const response = await fetchWithAuth(url + "/Board/GetAllBoards");
     const data = await response.json();
     setBoards(data);
   };
@@ -36,7 +37,7 @@ export const BoardsConfig = () => {
       />
       {showBoardForm && (
         <div>
-          <BoardForm fetchBoards={fetchBoards} />
+          <BoardForm fetchBoards={fetchBoards} setShowBoardForm={setShowBoardForm} />
         </div>
       )}
       <p className="font-bold underline pl-1">Controladores</p>

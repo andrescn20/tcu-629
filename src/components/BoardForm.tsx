@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { TextField } from "@fluentui/react/lib/TextField";
-import { IDDOptions, INewBoard } from "./Interfaces";
+import { IDDOptions, INewBoard } from "../utils/Interfaces";
 import { PrimaryButton } from "@fluentui/react";
+import fetchWithAuth from "../utils/fetchwithauth";
 
 interface IProps {
   fetchBoards: () => void;
@@ -19,7 +20,7 @@ const BoardForm = ({fetchBoards, setShowBoardForm}:IProps) => {
 
   const createnewBoard = async (e) => {
     e.preventDefault();
-      const response = await fetch(url + "/Board/CreateNewBoard", {
+      const response = await fetchWithAuth(url + "/Board/CreateNewBoard", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

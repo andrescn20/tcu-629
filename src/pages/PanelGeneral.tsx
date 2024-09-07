@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import Device from "../components/Device";
-import { IDevice } from "../components/Interfaces";
+import { IDevice } from "../utils/Interfaces";
+import { Spinner } from "@fluentui/react";
+import fetchWithAuth from "../utils/fetchwithauth";
 
 const PanelGeneral = () => {
 
@@ -10,17 +12,9 @@ const PanelGeneral = () => {
   const url = import.meta.env.VITE_API_URL;
 
   const fetchData = async () => {
-    const response = await fetch(url + "/Device/GetAllDevices");
+    const response = await fetchWithAuth(url + "/Device/GetAllDevices");
     const devices = await response.json();
     setDevices(devices);
-  };
-
-  const deleteDevice = (deviceId: number): void => {
-    fetch(url + `/Device/DeleteDevice?deviceId=${deviceId}`, {
-      method: "DELETE",
-    }).then(() => {
-      fetchData();
-    });
   };
 
   useEffect(() => {
@@ -39,7 +33,7 @@ const PanelGeneral = () => {
     <Layout>
       <div className="flex justify-center">
           <div className="flex-grow bg-right max-w-4xl">
-            {renderDevices()}
+            {devices.length == 0 ? <Spinner /> : renderDevices()}
           </div>
       </div>
     </Layout>
