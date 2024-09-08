@@ -10,6 +10,8 @@ import PanelGeneral from './pages/PanelGeneral.tsx';
 import Configuracion from './pages/Configuracion.tsx';
 import Dispositivo from './pages/Dispositivo.tsx';
 import PrivateRoute from './components/PrivateRoute.tsx'
+import Unauthorized from './pages/Unauthorized.tsx'
+import UsersConfig from './pages/UsersConfig.tsx'
 
 
 createRoot(document.getElementById('root')).render(
@@ -33,13 +35,23 @@ createRoot(document.getElementById('root')).render(
           </PrivateRoute>
         } />
         <Route path='/configuracion' element={
-          <PrivateRoute>
+          <PrivateRoute requiredRole='Admin'>
             <Configuracion />
           </PrivateRoute>
         } />
         <Route path='/dispositivo' element={
           <PrivateRoute>
             <Dispositivo />
+          </PrivateRoute>
+        } />
+        <Route path='/usersconfig' element={
+          <PrivateRoute requiredRole='Admin'>
+            <UsersConfig />
+          </PrivateRoute>
+        } />
+        <Route path='/unauthorized' element={
+          <PrivateRoute>
+            <Unauthorized />
           </PrivateRoute>
         } />
       </Routes>

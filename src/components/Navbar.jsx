@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 import LogoutButton from "./LogoutButton.tsx";
+import { decodeToken } from "../utils/decodeToken.tsx";
 
 const Navbar = () => {
 
@@ -11,10 +12,14 @@ const Navbar = () => {
       inicio: '/',
       dispositivo: '/agregardispositivo',
       general: '/general',
-      ayuda: '/configuracion'
+      ayuda: '/configuracion',
+      usuarios: '/usersconfig'
     }
     navigate(pages[target]);
   }
+
+  const role = decodeToken().role;
+  
 
   return (
     <div className="flex py-4 shadow-lg px-4 mb-2">
@@ -33,7 +38,8 @@ const Navbar = () => {
         <button value="inicio" onClick={(e) => navBarClick(e)} className="text-xl">Inicio</button>
         <button value="dispositivo" onClick={(e) => navBarClick(e)} className="text-xl" href="">Agregar Dispositivo</button>
         <button value="general" onClick={(e) => navBarClick(e)} className="text-xl">Panel General</button>
-        <button value="ayuda" onClick={(e) => navBarClick(e)} className="text-xl">Configuración</button>
+        {role === ("Admin") && <button value="ayuda" onClick={(e) => navBarClick(e)} className="text-xl">Configuración</button>}
+        {role === ("Admin") && <button value="usuarios" onClick={(e) => navBarClick(e)} className="text-xl">Usuarios</button>}
       </div>
       <div className="">
         <LogoutButton />
