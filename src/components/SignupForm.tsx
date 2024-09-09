@@ -1,20 +1,26 @@
 import React, { useState } from "react";
-import { PrimaryButton, TextField } from "@fluentui/react";
+import { DefaultButton, PrimaryButton, TextField } from "@fluentui/react";
 import fetchWithAuth from "../utils/fetchWithAuth";
 
 interface SignUpFormProps {
   onSignUp: () => void;
+  logIn: () => void;
 }
-const SignUpForm = ({ onSignUp }: SignUpFormProps) => {
+const SignUpForm = ({ onSignUp, logIn }: SignUpFormProps) => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
 
   const baseUrl = import.meta.env.VITE_API_URL;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (password !== confirmPassword) {
+      setErrorMessage("Las contraseñas no coinciden.");
+      return;
+    }
 
     const signupData = {
       username: username,
@@ -71,8 +77,17 @@ const SignUpForm = ({ onSignUp }: SignUpFormProps) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <div className="py-2">
+        <TextField
+          className="col-start-1 row-start-2"
+          label="Confirmar Contraseña"
+          type="password"
+          required
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+        <div className="py-2 space-x-3 space-y-3">
           <PrimaryButton type="submit" text="Registrar Usuario" />
+          <DefaultButton onClick={() => logIn()} text="Iniciar Sesión" />
         </div>
       </form>
     </div>

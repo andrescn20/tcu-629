@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { PrimaryButton, TextField } from "@fluentui/react";
+import { DefaultButton, PrimaryButton, TextField } from "@fluentui/react";
 import fetchWithAuth from "../utils/fetchWithAuth";
+import { Link } from "react-router-dom";
 
 interface LoginFormProps {
   onLogin: (token: string) => void;
+  registerUser: () => void; 
 }
-const LoginForm = ({ onLogin }: LoginFormProps) => {
+const LoginForm = ({ onLogin, registerUser}: LoginFormProps) => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -64,8 +66,10 @@ const LoginForm = ({ onLogin }: LoginFormProps) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <div className="py-2">
+        <Link className="text-blue-00" to="/forgot-password">Recuperar Contraseña</Link>
+        <div className="py-2 space-x-3 space-y-3">
           <PrimaryButton type="submit" text="Iniciar Sesión" />
+          <DefaultButton onClick={() => registerUser()} text="Registrar Usuario" />
         </div>
       </form>
     </div>
