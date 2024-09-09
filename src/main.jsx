@@ -12,6 +12,8 @@ import Dispositivo from './pages/Dispositivo.tsx';
 import PrivateRoute from './components/PrivateRoute.tsx'
 import Unauthorized from './pages/Unauthorized.tsx'
 import UsersConfig from './pages/UsersConfig.tsx'
+import ForgotPassword from './pages/ForgotPassword.tsx'
+import ResetPassword from './pages/ResetPassword.tsx'
 
 
 createRoot(document.getElementById('root')).render(
@@ -19,6 +21,8 @@ createRoot(document.getElementById('root')).render(
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/" element={
           <PrivateRoute>
             <Home />
