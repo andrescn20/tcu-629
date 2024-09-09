@@ -25,10 +25,9 @@ const Login = () => {
       </div>
       <div className='grow my-12 w-full flex flex-col items-center justify-center'>
         <div className='space-x-5 my-4 w-1/3'>
-          {login && <LoginForm onLogin = {handleLogin}/>}
-          {!login && <SignupForm onSignUp = {handleSignUp}/>}
+          {login && <LoginForm onLogin = {handleLogin} registerUser={() => setLogin(!login)}/>}
+          {!login && <SignupForm onSignUp = {handleSignUp} logIn={() => setLogin(!login)}/>}
         </div>
-        <DefaultButton text={login ? "Usuario Nuevo" : "Usuario Registrado"} onClick={() => setLogin(!login)} />
       </div>
     </div>
   );
