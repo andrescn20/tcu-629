@@ -2,13 +2,13 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Login from './pages/Login.jsx'
+import Login from './pages/Login.tsx'
 import './index.css'
-import Home from './pages/Home.jsx'
+import Home from './pages/Home.tsx'
 import AgregarDispositivo from './pages/AgregarDispositivo.tsx';
 import PanelGeneral from './pages/PanelGeneral.tsx';
 import Configuracion from './pages/Configuracion.tsx';
-import Dispositivo from './pages/Dispositivo.tsx';
+import EstadisticasDispositivo from './pages/EstadisticasDispositivo.tsx';
 import PrivateRoute from './components/PrivateRoute.tsx'
 import Unauthorized from './pages/Unauthorized.tsx'
 import UsersConfig from './pages/UsersConfig.tsx'
@@ -45,7 +45,7 @@ createRoot(document.getElementById('root')).render(
         } />
         <Route path='/dispositivo' element={
           <PrivateRoute>
-            <Dispositivo />
+            <EstadisticasDispositivo />
           </PrivateRoute>
         } />
         <Route path='/usersconfig' element={
