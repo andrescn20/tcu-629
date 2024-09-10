@@ -51,7 +51,6 @@ export interface IType {
     type: string;
   }
 
-
 export interface ITemperatureData {
   id: number,
   temperature: number,
@@ -60,4 +59,15 @@ export interface ITemperatureData {
   sensorId: number,
   boardId: number,
   deviceId:number
+}
+
+export interface IDeviceStats{
+  deviceId: number,
+  latestTemperature: number, 
+  latestTemperatureTime: string,
+  maxTemperature: number,
+  maxTemperatureTime: string,
+  medianTemperature: number,
+  minTemperature: number,
+  minTemperatureTime: string,
 }
