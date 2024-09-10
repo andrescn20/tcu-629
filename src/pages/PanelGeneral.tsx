@@ -6,13 +6,10 @@ import { Spinner } from "@fluentui/react";
 import fetchWithAuth from "../utils/fetchWithAuth";
 
 const PanelGeneral = () => {
-
   const [devices, setDevices] = useState<IDevice[]>([]);
 
-  const url = import.meta.env.VITE_API_URL;
-
   const fetchData = async () => {
-    const response = await fetchWithAuth(url + "/Device/GetAllDevices");
+    const response = await fetchWithAuth("/Device/GetAllDevices");
     const devices = await response.json();
     setDevices(devices);
   };
@@ -22,19 +19,19 @@ const PanelGeneral = () => {
   }, []);
 
   const renderDevices = () => {
-    return devices.map((device) => {
+    return devices.map((device, i) => {
       return (
-        <Device device={device}/>
+        <div className="rounded-md bg-slate-200">
+          <Device device={device} />
+        </div>
       );
     });
   };
 
   return (
     <Layout>
-      <div className="flex justify-center">
-          <div className="flex-grow bg-right max-w-4xl">
-            {devices.length == 0 ? <Spinner /> : renderDevices()}
-          </div>
+      <div className="flex justify-center my-4">
+        <div className="flex-grow bg-right max-w-4xl">{devices.length == 0 ? <Spinner /> : renderDevices()}</div>
       </div>
     </Layout>
   );
