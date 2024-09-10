@@ -16,7 +16,7 @@ const dropdownStyles = {
   dropdown: { width: 600 },
 };
 
-export const SensorFormField = ({ boards, setBoardId }: IProps) => {
+export const BoardFormField = ({ boards, setBoardId }: IProps) => {
   const [selectedBoardId, setSelectedBoardId] = useState<number>(0);
   const [dropdownOptions, setDropdownOptions] = useState<IDDOptions[]>([]);
   const [availableBoards, setAvailableBoards] = useState<boolean>(false);
@@ -73,4 +73,4 @@ export const SensorFormField = ({ boards, setBoardId }: IProps) => {
     />
   );
 };
-export default SensorFormField;
+export default BoardFormField;
