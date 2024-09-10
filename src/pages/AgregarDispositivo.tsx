@@ -27,6 +27,7 @@ const AgregarDispositivo = () => {
   const [sensors, setSensors] = useState([]);
   const [selectedSensors, setSelectedSensors] = useState<number[]>([]);
   const [selectedBoardId, setSelectedBoardId] = useState<number>(0);
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [newDevice, setNewDevice] = useState<INewDevice>({
     deviceTypeId: 0,
     location: "",
@@ -40,33 +41,22 @@ const AgregarDispositivo = () => {
   };
 
   const createDevice = async () => {
+    setErrorMessage("");
     let createdDeviceId = 0
     if (newDevice.sensorIds.length === 0) {
-      alert("Debe seleccionar al menos un sensor");
+      setErrorMessage("Debe seleccionar al menos un sensor");
       throw new Error();
     }
     if (newDevice.boardId === 0) {
-      alert("Debe seleccionar una placa");
-      throw new Error();
-    }
-    if (newDevice.deviceTypeId === 0) {
-      alert("Debe seleccionar un tipo de dispositivo");
-      throw new Error();
-    }
-    if (newDevice.location === "") {
-      alert("Debe ingresar una ubicación");
-      throw new Error();
-    }
-    if (newDevice.description === "") {
-      alert("Debe ingresar una descripción");
+      setErrorMessage("Debe seleccionar una placa");
       throw new Error();
     }
     if (newDevice.sensorIds.includes(0)) {
-      alert("Debe rellenar todos los campso de los sensores o eliminar los espacios vacíos");
+      setErrorMessage("Debe rellenar todos los campos de los sensores o eliminar los espacios vacíos");
       throw new Error();
     }
     if (hasDuplicates(selectedSensors)) {
-      alert("No puede seleccionar el mismo sensor más de una vez");
+      setErrorMessage("No puede seleccionar el mismo sensor más de una vez");
       throw new Error();
     }
     try {
@@ -94,10 +84,10 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> 
     e.preventDefault();
     try {
         const deviceId: number = await createDevice();
-        alert(`Dispositvo creado con éxito. Id: ${deviceId}`);
-        navigate("/");
+        setErrorMessage(`Dispositvo creado con éxito. Id: ${deviceId}`);
+        setTimeout(() => {navigate("/")}, 3000);
     } catch (error) {
-        alert("ATENCION: Error al crear el dispositivo");
+        setErrorMessage("ATENCION: Error al crear el dispositivo");
         console.error(error);
         navigate("/agregardispositivo");
     }
@@ -163,6 +153,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> 
             <h2 className="text-2xl">Nuevo Dispositivo</h2>
             <form onSubmit={handleSubmit} className="w-1/2">
               <p className="font-bold my-4">Dispositivo</p>
+              {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
               <Dropdown
                 required={true}
                 placeholder="Seleccione una opción"
@@ -184,6 +175,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> 
               />
               <TextField
                 label="Descripción"
+                required
                 placeholder="Calentador para las habitaciones 1 al 4"
                 value={newDevice.description}
                 onChange={(e) => setNewDevice({ ...newDevice, description: (e.target as HTMLInputElement).value })}
