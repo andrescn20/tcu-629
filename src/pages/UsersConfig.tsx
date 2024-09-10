@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import fetchWithAuth from "../utils/fetchWithAuth";
 import Layout from "../components/Layout";
 import { Toggle } from "@fluentui/react";
 
 const UsersConfig = () => {
-  const url = import.meta.env.VITE_API_URL;
 
   type user = {
     id: string;
@@ -19,7 +17,7 @@ const UsersConfig = () => {
   // Fetch users from the API
   const fetchUsers = async () => {
     try {
-      const response = await fetchWithAuth(`${url}/Auth/GetAllUsers`);
+      const response = await fetchWithAuth(`/Auth/GetAllUsers`);
       const data = await response.json();
       setUsers(data);
     } catch (error) {
@@ -32,10 +30,11 @@ const UsersConfig = () => {
   // Toggle admin status
   const toggleAdmin = async (userId: string, isAdmin: boolean) => {
     try {
-      await fetchWithAuth(`${url}/Auth/ToggleAdmin`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, isAdmin: !isAdmin }),
+
+      await fetchWithAuth("/Auth/ToggleAdmin", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId, isAdmin: !isAdmin }),
       });
       fetchUsers();
     } catch (error) {
