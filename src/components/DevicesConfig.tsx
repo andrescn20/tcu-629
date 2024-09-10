@@ -4,13 +4,12 @@ import { useNavigate } from "react-router-dom";
 import fetchWithAuth from "../utils/fetchWithAuth";
 
 const DevicesConfig = () => {
-  const url = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
 
   const [devices, setDevices] = useState<IDevice[]>([]);
 
   const deleteDevice = (deviceId: number): void => {
-    fetchWithAuth(`${url}/Device/DeleteDevice?deviceId=${deviceId}`, {
+    fetchWithAuth(`/Device/DeleteDevice?deviceId=${deviceId}`, {
       method: "DELETE",
     }).then(() => {
       fetchDevices();
@@ -18,7 +17,7 @@ const DevicesConfig = () => {
   };
 
   const fetchDevices = async () => {
-    const response = await fetchWithAuth(url + "/Device/GetAllDevices");
+    const response = await fetchWithAuth("/Device/GetAllDevices");
     const data = await response.json();
     setDevices(data);
   };

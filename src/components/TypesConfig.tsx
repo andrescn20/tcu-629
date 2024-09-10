@@ -5,27 +5,26 @@ import { IType } from "../utils/Interfaces";
 import fetchWithAuth from "../utils/fetchWithAuth";
 
 const TypesForm = () => {
-    const url = import.meta.env.VITE_API_URL;
-
+  
     const [newSensorType, setNewSensorType] = useState("");
     const [newDeviceType, setNewDeviceType] = useState("");
     const [deviceTypes, setDeviceTypes] = useState<IType[]>([]);
     const [sensorTypes, setSensorTypes] = useState<IType[]>([]);
   
     const fetchDeviceTypes = async () => {
-      const response = await fetchWithAuth(url + "/Device/GetDeviceTypes?withDevices=false");
+      const response = await fetchWithAuth("/Device/GetDeviceTypes?withDevices=false");
       const data = await response.json();
       setDeviceTypes(data);
     };
     const fetchSensorTypes = async () => {
-      const response = await fetchWithAuth(url + "/Sensor/GetSensorTypes");
+      const response = await fetchWithAuth("/Sensor/GetSensorTypes");
       const data = await response.json();
       setSensorTypes(data);
     };
   
 
     const handleNewSensorSubmit = async () => {
-        const response = await fetchWithAuth(url + '/Sensor/AddSensorType', {
+        const response = await fetchWithAuth('/Sensor/AddSensorType', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -37,7 +36,7 @@ const TypesForm = () => {
     }
 
     const handleNewDeviceSubmit = async () => {
-        const response = await fetchWithAuth(url + '/Device/AddDeviceType', {
+        const response = await fetchWithAuth('/Device/AddDeviceType', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -54,7 +53,7 @@ const TypesForm = () => {
             device: "Device"
         }
         const selectedCategory = categoryMapper[category];
-        const response = await fetchWithAuth(url + `/${selectedCategory}/Delete${selectedCategory}Type?typeId=${typeId}`, {
+        const response = await fetchWithAuth(`/${selectedCategory}/Delete${selectedCategory}Type?typeId=${typeId}`, {
             method: 'DELETE',
         });
         if(!response.ok) alert(`Error al eliminar. Verifique que no esté asociado a un ${category} existente.`);

@@ -5,13 +5,12 @@ import { DefaultButton, PrimaryButton } from "@fluentui/react";
 import fetchWithAuth from "../utils/fetchWithAuth";
 
 export const SensorsConfig = () => {
-  const url = import.meta.env.VITE_API_URL;
 
   const [sensors, setSensors] = useState<ISensor[]>([]);
   const [showForm, setShowForm] = useState<boolean>(false);
 
   const deleteSensor = (sensorId: number): void => {
-    fetchWithAuth(url + `/Sensor/DeleteSensorById?sensorId=${sensorId}`, {
+    fetchWithAuth(`/Sensor/DeleteSensorById?sensorId=${sensorId}`, {
       method: "DELETE",
     }).then(() => {
       fetchSensors();
@@ -19,7 +18,7 @@ export const SensorsConfig = () => {
   };
 
   const fetchSensors = async () => {
-    const response = await fetchWithAuth(url + "/Sensor/GetAllSensors");
+    const response = await fetchWithAuth("/Sensor/GetAllSensors");
     const data = await response.json();
     setSensors(data);
   };

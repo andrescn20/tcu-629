@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
-  const url = import.meta.env.VITE_API_URL;
 
   const navigate = useNavigate();
 

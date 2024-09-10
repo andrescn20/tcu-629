@@ -5,13 +5,12 @@ import { PrimaryButton } from "@fluentui/react";
 import fetchWithAuth from "../utils/fetchWithAuth";
 
 export const BoardsConfig = () => {
-  const url = import.meta.env.VITE_API_URL;
 
   const [boards, setBoards] = useState<IBoard[]>([]);
   const [showBoardForm, setShowBoardForm] = useState<boolean>(false);
 
   const deleteBoard = (boardId: number): void => {
-    fetchWithAuth(url + `/Board/DeleteBoardById?boardId=${boardId}`, {
+    fetchWithAuth(`/Board/DeleteBoardById?boardId=${boardId}`, {
       method: "DELETE",
     }).then(() => {
       fetchBoards();
@@ -19,7 +18,7 @@ export const BoardsConfig = () => {
   };
 
   const fetchBoards = async () => {
-    const response = await fetchWithAuth(url + "/Board/GetAllBoards");
+    const response = await fetchWithAuth("/Board/GetAllBoards");
     const data = await response.json();
     setBoards(data);
   };

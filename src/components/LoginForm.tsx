@@ -12,8 +12,6 @@ const LoginForm = ({ onLogin, registerUser}: LoginFormProps) => {
   const [password, setPassword] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
 
-  const baseUrl = import.meta.env.VITE_API_URL;
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -23,7 +21,7 @@ const LoginForm = ({ onLogin, registerUser}: LoginFormProps) => {
     };
 
     try {
-      const response = await fetchWithAuth(`${baseUrl}/Auth/login`, {
+      const response = await fetchWithAuth(`/Auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,6 +40,7 @@ const LoginForm = ({ onLogin, registerUser}: LoginFormProps) => {
         setErrorMessage(errorData.message || "Credenciales inválidas");
       }
     } catch (error) {
+      console.error(error);
       setErrorMessage("Error al iniciar sesión");
     }
   };

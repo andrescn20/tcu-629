@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { TextField } from "@fluentui/react/lib/TextField";
-import { IDDOptions, INewBoard } from "../utils/Interfaces";
+import { INewBoard } from "../utils/Interfaces";
 import { PrimaryButton } from "@fluentui/react";
 import fetchWithAuth from "../utils/fetchWithAuth";
 
@@ -10,7 +10,6 @@ interface IProps {
 }
 const BoardForm = ({fetchBoards, setShowBoardForm}:IProps) => {
 
-  const url = import.meta.env.VITE_API_URL;
 
   const [newBoard, setnewBoard] = useState<INewBoard>({
     microcontroller: "",
@@ -20,7 +19,7 @@ const BoardForm = ({fetchBoards, setShowBoardForm}:IProps) => {
 
   const createnewBoard = async (e) => {
     e.preventDefault();
-      const response = await fetchWithAuth(url + "/Board/CreateNewBoard", {
+      const response = await fetchWithAuth("/Board/CreateNewBoard", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -6,7 +6,6 @@ import BoardsConfig from "../components/BoardsConfig";
 import DevicesConfig from "../components/DevicesConfig";
 
 const Configuracion = () => {
-  const url = import.meta.env.VITE_API_URL;
 
   const TABS = {
     SENSORS: 1,

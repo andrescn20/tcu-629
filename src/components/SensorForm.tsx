@@ -11,7 +11,6 @@ interface IProps {
 }
 
 const SensorForm = ({ fetchSensors, setShowForm }: IProps) => {
-  const url = import.meta.env.VITE_API_URL;
 
   const dropdownStyles = {
     dropdown: { width: 300 },
@@ -39,7 +38,7 @@ const SensorForm = ({ fetchSensors, setShowForm }: IProps) => {
   };
 
   const fetchSensorTypes = async () => {
-    const response = await fetchWithAuth(url + "/Sensor/GetSensorTypes");
+    const response = await fetchWithAuth("/Sensor/GetSensorTypes");
     const data = await response.json();
     setSensorTypes(data);
   };
@@ -50,7 +49,7 @@ const SensorForm = ({ fetchSensors, setShowForm }: IProps) => {
       alert("Debe seleccionar el tipo de sensor");
       return;
     }
-    const response = await fetchWithAuth(url + "/Sensor/CreateNewSensor", {
+    const response = await fetchWithAuth("/Sensor/CreateNewSensor", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

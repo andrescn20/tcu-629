@@ -13,8 +13,6 @@ const SignUpForm = ({ onSignUp, logIn }: SignUpFormProps) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
 
-  const baseUrl = import.meta.env.VITE_API_URL;
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (password !== confirmPassword) {
@@ -29,7 +27,7 @@ const SignUpForm = ({ onSignUp, logIn }: SignUpFormProps) => {
     };
 
     try {
-      const response = await fetchWithAuth(`${baseUrl}/Auth/Register`, {
+      const response = await fetchWithAuth(`/Auth/Register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
