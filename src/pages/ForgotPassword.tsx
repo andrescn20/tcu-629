@@ -1,6 +1,7 @@
 import { PrimaryButton, TextField } from "@fluentui/react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import fetchWithAuth from "../utils/fetchWithAuth";
 
 const ForgotPassword = () => {
 
@@ -13,7 +14,7 @@ const ForgotPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch(`${url}/Auth/ForgotPassword`, {
+    const response = await fetchWithAuth(`/Auth/ForgotPassword`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
