@@ -54,7 +54,7 @@ export interface IType {
 export interface ITemperatureData {
   id: number,
   temperature: number,
-  timestamp: Date,
+  timestamp: string,
   sensorAddress: string,
   sensorId: number,
   boardId: number,
