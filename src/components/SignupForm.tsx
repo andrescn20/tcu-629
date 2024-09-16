@@ -39,7 +39,6 @@ const SignUpForm = ({ onSignUp, logIn }: SignUpFormProps) => {
       });
       setLoading(false);
       if (response.ok) {
-        console.log("weHere");
         onSignUp();
       } else {
         const errorData = await response.json();

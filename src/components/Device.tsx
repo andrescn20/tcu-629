@@ -18,7 +18,6 @@ const Device = ({ device }: DeviceProps) => {
     const id = device.deviceId.toString();
     const response = await fetchWithAuth(`/Device/GetDeviceStats?deviceId=${id}`);
     const stats = await response.json();
-    console.log(stats);
     setStats(stats);
   };
 

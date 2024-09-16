@@ -79,11 +79,9 @@ const EstadisticasDispositivo = () => {
     const fetchData = async () => {
       const temperatures = await fetchTemperatures(deviceId ?? "");
       setTemperatures(temperatures);
-      console.log(temperatures);
       setFilteredTemperatures(temperatures);
       const statsRequest = await fetchWithAuth(`/Device/GetDeviceStats?deviceId=${deviceId}`);
       const stats = await statsRequest.json();
-      console.log(stats);
       setStats(stats);
     };
     fetchData();
@@ -93,7 +91,6 @@ const EstadisticasDispositivo = () => {
     if (temperatures.length === 0) return;
     const minDate = new Date(temperatures[0].timestamp);
     const maxDate = new Date(temperatures[temperatures.length - 1].timestamp);
-    console.log(minDate, maxDate);
     setMinDate(minDate);
     setMaxDate(maxDate);
     setStartDate(minDate);

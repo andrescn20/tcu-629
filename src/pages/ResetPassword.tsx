@@ -1,6 +1,7 @@
 import { PrimaryButton, TextField } from "@fluentui/react";
 import React, { useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import fetchWithAuth from "../utils/fetchWithAuth";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
@@ -21,8 +22,7 @@ const ResetPassword = () => {
       return;
     }
 
-    console.log(url)
-    const response = await fetch(`${url}/Auth/ResetPassword`, {
+    const response = await fetchWithAuth(`/Auth/ResetPassword`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

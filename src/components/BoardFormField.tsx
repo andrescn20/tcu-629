@@ -39,7 +39,6 @@ export const BoardFormField = ({ boards, setBoardId }: IProps) => {
 
   useEffect(() => {
     setBoardId(selectedBoardId);
-    console.log(boards);
   }, [selectedBoardId]);
 
   useEffect(()=>{
