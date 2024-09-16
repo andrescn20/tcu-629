@@ -82,15 +82,15 @@ export const SensorFormField = ({ sensors, setSensor, currentSelection }: IProps
 
       {sensorFields.map((field, index) => {
         return (
-          <>
-            <p>Sensor #{field + 1}</p>
+          <div className="mb-2">
+            <p className="font-bold pt-2 text-sm">Sensor #{field + 1}</p>
             <SensorDropDown
               key={index}
               index={index}
               updateSelectedSensors={updateSelectedSensors}
               options={dropdownOptions}
             />
-          </>
+          </div>
         );
       })}
     </>
