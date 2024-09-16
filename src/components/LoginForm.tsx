@@ -72,7 +72,7 @@ const LoginForm = ({ onLogin, registerUser }: LoginFormProps) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Link className="text-blue-00" to="/forgot-password">
+          <Link className="text-blue-500" to="/forgot-password">
             Recuperar Contraseña
           </Link>
           <div className="py-2 space-x-3 space-y-3">
