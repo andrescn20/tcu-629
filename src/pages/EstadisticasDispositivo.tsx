@@ -6,9 +6,10 @@ import { useSearchParams } from "react-router-dom";
 import fetchTemperatures from "../utils/fetchTemperatures";
 import { DatePicker, DetailsList, PrimaryButton } from "@fluentui/react";
 import fetchWithAuth from "../utils/fetchWithAuth";
-import { initializeIcons } from '@fluentui/react/lib/Icons';
+import { initializeIcons } from "@fluentui/react/lib/Icons";
+import formatDateToLocalTime from "../utils/formatDate";
 
-initializeIcons(); 
+initializeIcons();
 
 const EstadisticasDispositivo = () => {
   const [queryParameters] = useSearchParams();
@@ -33,17 +34,8 @@ const EstadisticasDispositivo = () => {
   // Generate horizontal axis data (timestamp)
   const generateHorizontalAxisData = (temperatures: ITemperatureData[]) => {
     return temperatures.map((temperature) => {
-      let formattedDate = new Date(temperature.timestamp).toLocaleString("es-ES", {
-        weekday: "short", // Optional: 'long' for full day names
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-      });
-      formattedDate = formattedDate.replace(/(^\w{1})|(\s\w{1})/g, (match) => match.toUpperCase());
-      return formattedDate.replace(/De/g, "de");
+      let formattedDate = formatDateToLocalTime(temperature.timestamp);
+      return formattedDate;
     });
   };
 
@@ -119,9 +111,22 @@ const EstadisticasDispositivo = () => {
         const timestamp = new Date(temperature.timestamp);
         return timestamp >= startDate && timestamp <= endDate;
       });
-      setFilteredTemperatures(filtered);
+      const formatedFiltered = filtered.map((temperature) => {
+        return {
+          ...temperature,
+          timestamp: formatDateToLocalTime(temperature.timestamp),
+        };
+      });
+
+      setFilteredTemperatures(formatedFiltered);
     } else {
-      setFilteredTemperatures(temperatures); // No filtering if dates are missing
+      const formatedTemperatures = temperatures.map((temperature) => {
+        return {
+          ...temperature,
+          timestamp: formatDateToLocalTime(temperature.timestamp),
+        };
+      });
+      setFilteredTemperatures(formatedTemperatures); // No filtering if dates are missing
     }
   };
 
@@ -129,32 +134,39 @@ const EstadisticasDispositivo = () => {
     return temperatures.map((temperature) => {
       return {
         key: temperature.id,
-        timestamp: new Date(temperature.timestamp).toLocaleString("es-ES", {
-          weekday: "short", // Optional: 'long' for full day names
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-        }).replace(/(^\w{1})|(\s\w{1})/g, (match) => match.toUpperCase()).replace(/De/g, "de"),
+        timestamp: new Date(temperature.timestamp)
+          .toLocaleString("es-ES", {
+            weekday: "short", // Optional: 'long' for full day names
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          })
+          .replace(/(^\w{1})|(\s\w{1})/g, (match) => match.toUpperCase())
+          .replace(/De/g, "de"),
         temperature: temperature.temperature,
       };
     });
-  }
+  };
 
   const columns = [
-    { key: 'column1', name: 'Fecha', fieldName: 'timestamp', minWidth: 200, maxWidth: 500, isResizable: true },
-    { key: 'column2', name: 'Temperatura', fieldName: 'temperature', minWidth: 100, maxWidth: 200, isResizable: true },
+    { key: "column1", name: "Fecha", fieldName: "timestamp", minWidth: 200, maxWidth: 500, isResizable: true },
+    { key: "column2", name: "Temperatura", fieldName: "temperature", minWidth: 100, maxWidth: 200, isResizable: true },
   ];
-
 
   return (
     <Layout>
       <div className="grid grid-cols-12 items-center gap-4 mx-12 my-12">
         <div className="col-span-12 flex justify-between">
           <h1 className="text-2xl font-bold ">Estadísticas del Dispositivo</h1>
-          <h2 className="text-lg text-end px-4 py-2 rounded-md bg-slate-200 p-1"><strong>Descripción: </strong>{description}<br></br><strong>Ubicación: </strong> {location} <br></br> <strong>Tipo:</strong> {deviceType}</h2>
+          <h2 className="text-lg text-end px-4 py-2 rounded-md bg-slate-200 p-1">
+            <strong>Descripción: </strong>
+            {description}
+            <br></br>
+            <strong>Ubicación: </strong> {location} <br></br> <strong>Tipo:</strong> {deviceType}
+          </h2>
         </div>
         <div className="col-span-12 mx-6 row-start-2">
           <ReactECharts option={options} />
@@ -180,10 +192,7 @@ const EstadisticasDispositivo = () => {
           />
         </div>
         <div className="col-span-6 col-start-3 row-start-4">
-          <DetailsList
-              items={generateTableData(filteredTemperatures)}
-              columns={columns}
-            />
+          <DetailsList items={generateTableData(filteredTemperatures)} columns={columns} />
         </div>
       </div>
     </Layout>

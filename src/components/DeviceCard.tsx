@@ -1,26 +1,11 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import formatDateToLocalTime from "../utils/formatDate";
 
 interface DeviceCardProps {
   title: string;
   value: number;
   date: string | undefined;
 }
-
-const formatDateToLocalTime = (utcDateString: string): string => {
-  console.log(utcDateString);
-  const utcDate = new Date(utcDateString);
-  const locale = utcDate.toLocaleString("es-ES", {
-    weekday: "short",
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-  });
-  return locale.replace(/(^\w{1})|(\s\w{1})/g, (match) => match.toUpperCase());
-};
 
 const DeviceCard = ({ title, value, date }: DeviceCardProps) => {
   return (
