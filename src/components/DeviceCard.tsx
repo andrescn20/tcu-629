@@ -8,8 +8,18 @@ interface DeviceCardProps {
 }
 
 const formatDateToLocalTime = (utcDateString: string): string => {
+  console.log(utcDateString);
   const utcDate = new Date(utcDateString);
-  return utcDate.toLocaleString(); // Converts to local time and formats it
+  const locale = utcDate.toLocaleString("es-ES", {
+    weekday: "short",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+  return locale.replace(/(^\w{1})|(\s\w{1})/g, (match) => match.toUpperCase());
 };
 
 const DeviceCard = ({ title, value, date }: DeviceCardProps) => {
