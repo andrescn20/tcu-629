@@ -26,6 +26,9 @@ const PanelGeneral = () => {
   }, []);
 
   const renderDevices = () => {
+    if(devices.length === 0) {
+      return <p>No hay dispositivos registrados</p>
+    }
     return devices.map((device, i) => {
       return (
         <div className="rounded-md bg-slate-200">
