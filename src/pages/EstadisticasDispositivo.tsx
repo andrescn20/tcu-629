@@ -125,7 +125,7 @@ const EstadisticasDispositivo = () => {
     }
   };
 
-  const generateTableDta = (temperatures: ITemperatureData[]) => {
+  const generateTableData = (temperatures: ITemperatureData[]) => {
     return temperatures.map((temperature) => {
       return {
         key: temperature.id,
@@ -144,7 +144,7 @@ const EstadisticasDispositivo = () => {
   }
 
   const columns = [
-    { key: 'column1', name: 'Fecha', fieldName: 'timestamp', minWidth: 100, maxWidth: 200, isResizable: true },
+    { key: 'column1', name: 'Fecha', fieldName: 'timestamp', minWidth: 200, maxWidth: 500, isResizable: true },
     { key: 'column2', name: 'Temperatura', fieldName: 'temperature', minWidth: 100, maxWidth: 200, isResizable: true },
   ];
 
@@ -153,8 +153,8 @@ const EstadisticasDispositivo = () => {
     <Layout>
       <div className="grid grid-cols-12 items-center gap-4 mx-12 my-12">
         <div className="col-span-12 flex justify-between">
-          <h1 className="text-2xl font-bold">Estadísticas del Dispositivo</h1>
-          <h2 className="text-lg text-end rounded-md bg-slate-200 p-1"><strong>Descripción: </strong>{description}<br></br><strong>Ubicación: </strong> {location} <br></br> <strong>Tipo:</strong> {deviceType}</h2>
+          <h1 className="text-2xl font-bold ">Estadísticas del Dispositivo</h1>
+          <h2 className="text-lg text-end px-4 py-2 rounded-md bg-slate-200 p-1"><strong>Descripción: </strong>{description}<br></br><strong>Ubicación: </strong> {location} <br></br> <strong>Tipo:</strong> {deviceType}</h2>
         </div>
         <div className="col-span-12 mx-6 row-start-2">
           <ReactECharts option={options} />
@@ -181,7 +181,7 @@ const EstadisticasDispositivo = () => {
         </div>
         <div className="col-span-6 col-start-3 row-start-4">
           <DetailsList
-              items={generateTableDta(filteredTemperatures)}
+              items={generateTableData(filteredTemperatures)}
               columns={columns}
             />
         </div>

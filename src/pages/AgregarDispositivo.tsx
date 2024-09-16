@@ -152,7 +152,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> 
           <>
             <h2 className="text-2xl">Nuevo Dispositivo</h2>
             <form onSubmit={handleSubmit} className="w-1/2">
-              <p className="font-bold my-4">Dispositivo</p>
+              <p className="font-bold mt-4">Dispositivo</p>
               {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
               <Dropdown
                 required={true}
@@ -180,7 +180,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> 
                 value={newDevice.description}
                 onChange={(e) => setNewDevice({ ...newDevice, description: (e.target as HTMLInputElement).value })}
               />
-              <p className="font-bold my-4">Sensores</p>
+              <p className="font-bold mt-4">Sensores</p>
               <SensorFormField
                 sensors={sensors}
                 setSensor={setSelectedSensors}
