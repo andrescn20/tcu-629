@@ -7,11 +7,18 @@ import fetchWithAuth from "../utils/fetchWithAuth";
 
 const PanelGeneral = () => {
   const [devices, setDevices] = useState<IDevice[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const fetchData = async () => {
     const response = await fetchWithAuth("/Device/GetAllDevices");
+    if(response.status === 204) {
+      setDevices([]);
+      setLoading(false);
+      return
+    } 
     const devices = await response.json();
     setDevices(devices);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -31,7 +38,7 @@ const PanelGeneral = () => {
   return (
     <Layout>
       <div className="flex justify-center my-4">
-        <div className="flex-grow bg-right max-w-4xl">{devices.length == 0 ? <Spinner /> : renderDevices()}</div>
+        <div className="flex-grow bg-right max-w-4xl">{loading ? <Spinner /> : renderDevices()}</div>
       </div>
     </Layout>
   );
