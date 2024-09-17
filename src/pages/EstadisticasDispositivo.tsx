@@ -34,8 +34,7 @@ const EstadisticasDispositivo = () => {
   // Generate horizontal axis data (timestamp)
   const generateHorizontalAxisData = (temperatures: ITemperatureData[]) => {
     return temperatures.map((temperature) => {
-      let formattedDate = formatDateToLocalTime(temperature.timestamp);
-      return formattedDate;
+      return temperature.timestamp
     });
   };
 
