@@ -8,6 +8,7 @@ interface DeviceCardProps {
 }
 
 const DeviceCard = ({ title, value, date }: DeviceCardProps) => {
+  console.log(title, date)
   return (
     <div className="flex flex-col p-4 m-2 bg-white border-slate-500 border-2 rounded-md">
       <div className="flex justify-between items-center">
@@ -30,7 +31,7 @@ const DeviceCard = ({ title, value, date }: DeviceCardProps) => {
         </svg>
       </div>
       <div className="text-4xl font-bold flex justify-center my-2">{value} °C</div>
-      {date && <div>Tomada el: {formatDateToLocalTime(date)}</div>}
+      {date && <div>Tomada el: {formatDateToLocalTime(date, true)}</div>}
     </div>
   );
 };

@@ -4,7 +4,7 @@ import Layout from "../components/Layout";
 import { IDeviceStats, ITemperatureData } from "../utils/Interfaces";
 import { useSearchParams } from "react-router-dom";
 import fetchTemperatures from "../utils/fetchTemperatures";
-import { DatePicker, DetailsList, PrimaryButton } from "@fluentui/react";
+import { DetailsList } from "@fluentui/react";
 import fetchWithAuth from "../utils/fetchWithAuth";
 import { initializeIcons } from "@fluentui/react/lib/Icons";
 import formatDateToLocalTime from "../utils/formatDate";
@@ -25,6 +25,7 @@ const EstadisticasDispositivo = () => {
   const [filteredTemperatures, setFilteredTemperatures] = useState<ITemperatureData[]>([]);
   const [minDate, setMinDate] = useState<Date>();
   const [maxDate, setMaxDate] = useState<Date>();
+  const [minTemp, setMinTemp] = useState<number>();
 
   // Generate vertical axis data (temperature)
   const generateVerticalAxisData = (temperatures: ITemperatureData[]) => {
@@ -34,7 +35,7 @@ const EstadisticasDispositivo = () => {
   // Generate horizontal axis data (timestamp)
   const generateHorizontalAxisData = (temperatures: ITemperatureData[]) => {
     return temperatures.map((temperature) => {
-      return temperature.timestamp
+      return formatDateToLocalTime(temperature.timestamp);
     });
   };
 
@@ -43,6 +44,13 @@ const EstadisticasDispositivo = () => {
     const date = temperatureData.axisValue;
     return `Hora: ${date}<br/>Temperature: ${temperatureData.data}°C`;
   };
+
+  const defineVerticalMin = () => {
+    if (minTemp) {
+      return minTemp - 2;
+    }
+    return 0;
+  }
 
   // Chart options
   const options = {
@@ -56,6 +64,7 @@ const EstadisticasDispositivo = () => {
     },
     yAxis: {
       type: "value",
+      min: defineVerticalMin(),
     },
     series: [
       {
@@ -71,17 +80,35 @@ const EstadisticasDispositivo = () => {
       },
       formatter: tooltipFormatter, // Custom tooltip formatter
     },
+    dataZoom: [
+      {
+        show: true,
+        realtime: true,
+        start: 0,
+        end: 100,
+        xAxisIndex: [0, 1]
+      },
+      {
+        type: 'inside',
+        realtime: true,
+        start: 0,
+        end: 100,
+        xAxisIndex: [0, 1]
+      }
+    ],
   };
 
-  // Fetch temperatures when component mounts
   useEffect(() => {
     const fetchData = async () => {
       const temperatures = await fetchTemperatures(deviceId ?? "");
-      setTemperatures(temperatures);
-      setFilteredTemperatures(temperatures);
+      const formatedTemperatures = formatTemperatures(temperatures);
+      setTemperatures(formatedTemperatures);
+      setFilteredTemperatures(formatedTemperatures);
       const statsRequest = await fetchWithAuth(`/Device/GetDeviceStats?deviceId=${deviceId}`);
       const stats = await statsRequest.json();
       setStats(stats);
+      const minTemp = Math.min(...temperatures.map((temperature:ITemperatureData) => temperature.temperature));
+      setMinTemp(minTemp);
     };
     fetchData();
   }, [deviceId]);
@@ -100,28 +127,25 @@ const EstadisticasDispositivo = () => {
     filterTemperatures();
   }, [startDate, endDate]);
 
-  // Filter the temperatures by date range
+  const formatTemperatures = (temperatures: ITemperatureData[]) => {
+    return temperatures.map((temperature) => {
+      return {
+        ...temperature,
+        timestamp: formatDateToLocalTime(temperature.timestamp),
+      };
+    });
+  };
   const filterTemperatures = () => {
     if (startDate && endDate) {
       const filtered = temperatures.filter((temperature) => {
         const timestamp = new Date(temperature.timestamp);
         return timestamp >= startDate && timestamp <= endDate;
       });
-      const formatedFiltered = filtered.map((temperature) => {
-        return {
-          ...temperature,
-          timestamp: formatDateToLocalTime(temperature.timestamp),
-        };
-      });
+      const formatedFiltered = formatTemperatures(filtered);
 
       setFilteredTemperatures(formatedFiltered);
     } else {
-      const formatedTemperatures = temperatures.map((temperature) => {
-        return {
-          ...temperature,
-          timestamp: formatDateToLocalTime(temperature.timestamp),
-        };
-      });
+      const formatedTemperatures = formatTemperatures(temperatures);
       setFilteredTemperatures(formatedTemperatures); // No filtering if dates are missing
     }
   };
@@ -130,18 +154,7 @@ const EstadisticasDispositivo = () => {
     return temperatures.map((temperature) => {
       return {
         key: temperature.id,
-        timestamp: new Date(temperature.timestamp)
-          .toLocaleString("es-ES", {
-            weekday: "short", // Optional: 'long' for full day names
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-          })
-          .replace(/(^\w{1})|(\s\w{1})/g, (match) => match.toUpperCase())
-          .replace(/De/g, "de"),
+        timestamp: formatDateToLocalTime(temperature.timestamp),
         temperature: temperature.temperature,
       };
     });
@@ -167,27 +180,8 @@ const EstadisticasDispositivo = () => {
         <div className="col-span-12 mx-6 row-start-2">
           <ReactECharts option={options} />
         </div>
-        <div className="col-span-4 col-start-3 row-start-3">
-          <DatePicker
-            label="Inicio"
-            value={startDate}
-            minDate={minDate}
-            maxDate={endDate}
-            onSelectDate={setStartDate}
-            placeholder="Seleccione fecha inicial..."
-          />
-        </div>
-        <div className="col-span-4 row-start-3">
-          <DatePicker
-            label="Fin"
-            value={endDate}
-            minDate={startDate}
-            maxDate={maxDate}
-            onSelectDate={setEndDate}
-            placeholder="Seleccione fecha final..."
-          />
-        </div>
-        <div className="col-span-6 col-start-3 row-start-4">
+       
+        <div className="col-span-6 col-start-3 row-start-3">
           <DetailsList items={generateTableData(filteredTemperatures)} columns={columns} />
         </div>
       </div>
