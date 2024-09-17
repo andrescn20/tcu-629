@@ -4,7 +4,7 @@ import Layout from "../components/Layout";
 import { IDeviceStats, ITemperatureData } from "../utils/Interfaces";
 import { useSearchParams } from "react-router-dom";
 import fetchTemperatures from "../utils/fetchTemperatures";
-import { DetailsList } from "@fluentui/react";
+import { DefaultButton, DetailsList } from "@fluentui/react";
 import fetchWithAuth from "../utils/fetchWithAuth";
 import { initializeIcons } from "@fluentui/react/lib/Icons";
 import formatDateToLocalTime from "../utils/formatDate";
@@ -169,7 +169,10 @@ const EstadisticasDispositivo = () => {
     <Layout>
       <div className="grid grid-cols-12 items-center gap-4 mx-12 my-12">
         <div className="col-span-12 flex justify-between">
-          <h1 className="text-2xl font-bold ">Estadísticas del Dispositivo</h1>
+          <div className="space-y-2">
+            <h1 className="text-2xl font-bold ">Estadísticas del Dispositivo</h1>
+            <DefaultButton text="Atrás" onClick={() => window.history.back()} />
+          </div>
           <h2 className="text-lg text-end px-4 py-2 rounded-md bg-slate-200 p-1">
             <strong>Descripción: </strong>
             {description}
