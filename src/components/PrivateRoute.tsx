@@ -4,7 +4,7 @@ import { decodeToken} from '../utils/decodeToken';
 
   interface PrivateRouteProps {
     children: React.ReactElement;
-    requiredRole?: string; // Specify required role
+    requiredRole?: string;
   }
 
 const PrivateRoute = ({children , requiredRole}:PrivateRouteProps) => {
