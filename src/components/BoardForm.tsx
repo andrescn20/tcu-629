@@ -17,7 +17,7 @@ const BoardForm = ({fetchBoards, setShowBoardForm}:IProps) => {
     boardSerial: "",
   });
 
-  const createnewBoard = async (e) => {
+  const createnewBoard = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
       const response = await fetchWithAuth("/Board/CreateNewBoard", {
         method: "POST",
@@ -44,7 +44,7 @@ const BoardForm = ({fetchBoards, setShowBoardForm}:IProps) => {
           required
           value={newBoard.microcontroller}
           onChange={(e) => {
-            setnewBoard({ ...newBoard, microcontroller: e.target.value });
+            setnewBoard({ ...newBoard, microcontroller: (e.target as HTMLInputElement).value });
           }}
         />
         <TextField
@@ -52,14 +52,14 @@ const BoardForm = ({fetchBoards, setShowBoardForm}:IProps) => {
           label="Descripción"
           required
           value={newBoard.description}
-          onChange={(e) => setnewBoard({ ...newBoard, description: e.target.value })}
+          onChange={(e) => setnewBoard({ ...newBoard, description: (e.target as HTMLInputElement).value })}
         />
         <TextField
           className="col-start-1 row-start-3"
           label="Serial"
           required
           value={newBoard.boardSerial}
-          onChange={(e) => setnewBoard({ ...newBoard, boardSerial: e.target.value })}
+          onChange={(e) => setnewBoard({ ...newBoard, boardSerial: (e.target as HTMLInputElement).value })}
         />
         <PrimaryButton type="subit" className="col-start-2 row-start-3" text="Guardar Controlador" />
       </form>
