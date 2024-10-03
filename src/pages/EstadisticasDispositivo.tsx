@@ -47,7 +47,7 @@ const EstadisticasDispositivo = () => {
 
   const defineVerticalMin = () => {
     if (minTemp) {
-      return minTemp - 2;
+      return Math.floor(minTemp - 2);
     }
     return 0;
   }
