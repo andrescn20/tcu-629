@@ -12,7 +12,7 @@ const Login = () => {
     setLogin(true);
   };
 
-  const handleLogin = (token) => {
+  const handleLogin = (token:string) => {
     if (token) {
       navigate('/');
     }

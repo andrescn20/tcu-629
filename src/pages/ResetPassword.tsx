@@ -14,7 +14,7 @@ const ResetPassword = () => {
   const email = searchParams.get("email");
   const token = searchParams.get("token");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -52,7 +52,7 @@ const ResetPassword = () => {
               type="password"
               required
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setPassword((e.target as HTMLInputElement).value)}
             />
             <TextField
               className="col-start-1 row-start-2"
@@ -60,7 +60,7 @@ const ResetPassword = () => {
               type="password"
               required
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              onChange={(e) => setConfirmPassword((e.target as HTMLInputElement).value)}
             />
             <div className="py-2 space-x-3 space-y-3">
               <PrimaryButton type="submit">Restablecer Contraseña</PrimaryButton>
