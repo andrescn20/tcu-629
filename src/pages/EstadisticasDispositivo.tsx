@@ -8,6 +8,8 @@ import { DefaultButton, DetailsList } from "@fluentui/react";
 import fetchWithAuth from "../utils/fetchWithAuth";
 import { initializeIcons } from "@fluentui/react/lib/Icons";
 import formatDateToLocalTime from "../utils/formatDate";
+import TemperatureTable from "../components/TempsTable";
+import CSVDownload from "../components/CSVDownload";
 
 initializeIcons();
 
@@ -153,7 +155,7 @@ const EstadisticasDispositivo = () => {
   const generateTableData = (temperatures: ITemperatureData[]) => {
     return temperatures.map((temperature) => {
       return {
-        key: temperature.id,
+        id: temperature.id,
         timestamp: formatDateToLocalTime(temperature.timestamp),
         temperature: temperature.temperature,
       };
@@ -184,8 +186,9 @@ const EstadisticasDispositivo = () => {
           <ReactECharts option={options} />
         </div>
        
-        <div className="col-span-6 col-start-3 row-start-3">
-          <DetailsList items={generateTableData(filteredTemperatures)} columns={columns} />
+        <div className="col-span-8 col-start-3 row-start-3">
+          <CSVDownload data={generateTableData(filteredTemperatures)} target="_blank" filename="temperatures.csv" />
+          <TemperatureTable data={generateTableData(filteredTemperatures)} />
         </div>
       </div>
     </Layout>
